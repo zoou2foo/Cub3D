@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/17 15:40:43 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/18 17:18:26 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,28 @@ int	create_colour(int red, int green, int blue, int trans)
 t_tex	*create_array_pxl(xpm_t *wall)
 {
 	t_tex		*texture;
-	uint32_t	x;
-	uint32_t	y;
+	int	x;
+	int	y;
 	int			count;
 
-	y = 0;
-	x = 0;
+	y = -1;
 	count = 0;
-	texture = malloc(sizeof(t_tex));
-	texture->tab = malloc(sizeof(int) + wall->texture.height);
-	while (y < wall->texture.height)
+	texture = ft_calloc(1, sizeof(t_tex));
+	texture->tab = ft_calloc(sizeof(int*), wall->texture.height + 1);
+	while (++y < (int)wall->texture.height)
 	{
-		texture->tab[y] = malloc(sizeof(int) * (wall->texture.width + 1));
-		while (x < wall->texture.width)
+		x = -1;
+		texture->tab[y] = ft_calloc(sizeof(int), (wall->texture.width));
+		while (++x < (int)wall->texture.width)
 		{
 			texture->tab[y][x] = create_colour(wall->texture.pixels[count + 0], \
 			wall->texture.pixels[count + 1], wall->texture.pixels[count + 2], \
 			wall->texture.pixels[count + 3]);
-			x++;
 			count += 4;
 		}
-		texture->tab[y][x] = '\0';
-		x = 0;
-		y++;
 	}
 	texture->width = wall->texture.width;
 	texture->height = wall->texture.height;
-	texture->tab[y] = NULL;
 	return (texture);
 }
 
@@ -55,7 +50,7 @@ void	add_texture(t_parse *data)
 {
 	//xpm mettre en local
 	
-	data->xpm = malloc(sizeof(t_xpm) * 4);
+	data->xpm = malloc(sizeof(t_xpm));
 	data->xpm->EA = mlx_load_xpm42(data->EA);
 	if (!data->xpm->EA)
 		exit(1);//need to better deal error and free stuff

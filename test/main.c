@@ -14,14 +14,15 @@ int main(void)
 	mlx_t				*mlx;
 	static	mlx_image_t	*image;
 	xpm_t				*wall;
-	int					**tab;
 	uint32_t			y;
 	uint32_t			x;
 	int					count;
+	t_tex				*tex;
 
 	y = 0;
 	x = 0;
 	count = 0;
+	tex = malloc(sizeof(t_tex));
 	if (!(mlx = mlx_init(1920, 1080, "P'tit carré cheap", true)))
 	{
 		mlx_strerror(mlx_errno); //fonction a utiliser pour gerer les erreurs
@@ -33,35 +34,35 @@ int main(void)
 		return(EXIT_FAILURE);
 	}
 	wall = malloc(sizeof(xpm_t));
-	tab = malloc(sizeof(int) * (wall->texture.height + 1));
-	wall = mlx_load_xpm42("/Users/vjean/Desktop/Cub3D/textures/Stardew-Brick-Wall-Multi-Colored.xpm42");
+	tex->tab = malloc(sizeof(int) * (wall->texture.height + 1));
+	wall = mlx_load_xpm42("/Users/jgagnon/Desktop/Cub3D/textures/Stardew_Brick_Wall_Circuit_Pattern.xpm42");
 	while (y < wall->texture.height)
 	{
-		tab[y] = malloc(sizeof(int) * (wall->texture.width + 1));
+		tex->tab[y] = malloc(sizeof(int) * (wall->texture.width + 1));
 		while (x < wall->texture.width)
 		{
-			tab[y][x] = create_color(wall->texture.pixels[count + 0], \
+			tex->tab[y][x] = create_color(wall->texture.pixels[count + 0], \
 			wall->texture.pixels[count + 1], wall->texture.pixels[count + 2],\
 			wall->texture.pixels[count + 3]);
 			x++;
 			count += 4;
 		}
-		tab[y][x] = '\0';
+		tex->tab[y][x] = '\0';
 		x = 0;
 		y++;
 	}
-	tab[y] = NULL;
+	tex->tab[y] = NULL;
 	x = 0;
 	y = 0;
-	while (y < wall->texture.height)
+	while (x < 800)
 	{
-		while (x < wall->texture.width)
+		while (y < 800)
 		{
-			mlx_put_pixel(image, x, y, tab[y][x]);
-			x++;
+			mlx_put_pixel(image, x, y, tex->tab[y % wall->texture.height][x % wall->texture.width]);
+			y++;
 		}
-		x = 0;
-		y++;
+		y = 0;
+		x++;
 	}
 	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
 	{
@@ -71,9 +72,4 @@ int main(void)
 	}
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-}
-
-if (data->ray->ray_dirY < 0)
-{
-	put_pixel(data->, index, i, image[i % tex->height][index % tex->width]);
 }
