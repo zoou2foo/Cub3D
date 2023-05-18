@@ -78,6 +78,7 @@ typedef struct s_raycast {
     int     line_height; //to know the height of the line to draw
     int     draw_start_pt;
     int     draw_end_pt;
+    double  move_speed;
 } t_raycast;
 
 typedef struct s_parse {
@@ -142,5 +143,8 @@ void	add_texture(t_parse *data);
 
 /*		KEY_EVENT		*/
 void	key_event(struct mlx_key_data key, void *data);
+
+/*      MOVES           */
+void	go_ahead(t_parse *data);
 
 #endif

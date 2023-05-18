@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/17 16:06:09 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/18 14:24:58 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	setup_struct(t_parse *data)
 {
 	data->ray = malloc(sizeof(t_raycast));
 	data->image = mlx_new_image(data->mlx, w, h);
+	data->ray->move_speed = 0.15; //need to moves
 	init_player_pos(data);
 	init_plane(data);
 }
