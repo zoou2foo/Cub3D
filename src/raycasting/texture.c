@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/18 17:18:26 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 15:22:43 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ t_tex	*create_array_pxl(xpm_t *wall)
 
 void	add_texture(t_parse *data)
 {
-	//xpm mettre en local
-	
 	data->xpm = malloc(sizeof(t_xpm));
 	data->xpm->EA = mlx_load_xpm42(data->EA);
 	if (!data->xpm->EA)
-		exit(1);//need to better deal error and free stuff
+		exit(1);//need to better deal error and free stuff. Need it or not??
 	data->xpm->WE = mlx_load_xpm42(data->WE);
 	if (!data->xpm->WE)
 		exit(1);//need to better deal error and free stuff

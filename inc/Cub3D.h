@@ -152,4 +152,8 @@ void	go_back(t_parse *data);
 void	go_left(t_parse *data);
 void	go_right(t_parse *data);
 
+/*      FREE STUFF      */
+void	ft_free_null(void *ptr);
+void	ft_free_tab(void **tab);
+
 #endif

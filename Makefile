@@ -17,6 +17,7 @@ SRCS = 	src/main.c\
  		src/clear.c\
  		src/get.c\
  		src/error.c\
+		src/free_stuff.c\
 		src/raycasting/raycast.c\
 		src/raycasting/texture.c\
 		src/cube/init_game.c\
@@ -52,6 +53,8 @@ mlx:
 # 		@mv ${SRCS_DIR}*.o ${OBJS_DIR}
 		@echo "____Les fichiers tests ont été créés____"
 
+leaks: all
+	valgrind --show-leak-kinds=all --leak-check=full ./cub3d map.cub
 clean:
 		${RM} ${NAME} ${NAME}.dSYM
 		${RM} mlx

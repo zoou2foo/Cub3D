@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/19 08:14:07 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 15:29:31 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,13 @@ void	put_tex(t_tex *tex, mlx_image_t *image, int index, int count)
 
 void	add_tex_wall(t_parse *data, int index)
 {
-	int	i;
+	int		i;
+	//double	ratio_step;
+	//double	w_ratio_texpos;
 
 	i = 0;
+	//ratio_step = 
+	//w_ratio_texpos = data->
 	while (i < data->ray->draw_start_pt) //plafond
 	{
 		mlx_put_pixel(data->image, index, i, data->CeilingColor);
@@ -239,6 +243,9 @@ void	start_raycast(t_parse *data)
 	setup_struct(data);
 	go_raycast(data);
 	mlx_key_hook(data->mlx, key_event, (void*)data);
-	mlx_loop(data->mlx); //add keypress avant loop
+	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
+	ft_free_tab((void*)data->map->map);
+	ft_free_null(data);
+	exit (EXIT_SUCCESS);
 }

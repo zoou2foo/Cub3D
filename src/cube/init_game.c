@@ -6,14 +6,11 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:22:58 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/05 11:39:38 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 15:30:38 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
-
-//window ->put map on window ->raycast time!
-//then check texture path from the map file
 
 void	start_mlx(t_parse *data)
 {
@@ -25,11 +22,15 @@ void	start_mlx(t_parse *data)
 	if (!(data->mlx = mlx_init(1920, 1080, "cub3d", true)))
 	{
 		mlx_strerror(mlx_errno); //fonction a utiliser pour gerer les erreurs
+		ft_free_tab((void*)data->map->map);
+		ft_free_null(data);
 		exit(EXIT_FAILURE);
 	}
 	if(!(data->image = mlx_new_image(data->mlx, 64, 64))) //size of map??
 	{
 		mlx_close_window(data->mlx);//ferme la fenetre
+		ft_free_tab((void*)data->map->map);
+		ft_free_null(data);
 		exit(EXIT_FAILURE);
 	}
 	while (y <= 63) //à modifier ⬇️
@@ -49,6 +50,8 @@ void	start_mlx(t_parse *data)
 	{
 		mlx_delete_image(data->mlx, data->image);
 		mlx_close_window(data->mlx);
+		ft_free_tab((void*)data->map->map);
+		ft_free_null(data);
 		exit(EXIT_FAILURE);
 	}
 	mlx_loop(data->mlx);

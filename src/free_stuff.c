@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   free_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 16:03:38 by jgagnon           #+#    #+#             */
-/*   Updated: 2023/05/19 15:44:43 by vjean            ###   ########.fr       */
+/*   Created: 2023/05/19 15:08:06 by vjean             #+#    #+#             */
+/*   Updated: 2023/05/19 15:11:15 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/Cub3D.h"
 
-void	*ft_calloc(size_t count, size_t size);
-
-void	*ft_calloc(size_t count, size_t size)
+void	ft_free_null(void *ptr)
 {
-	void	*mem;
+	if (ptr)
+		free(ptr);
+	ptr = NULL;
+}
 
-	mem = malloc(size * count);
-	if (!mem)
-		return (0);
-	ft_bzero(mem, (count * size));
-	return (mem);
+void	ft_free_tab(void **tab)
+{
+	int	i;
+
+	if (tab)
+	{
+		i = -1;
+		while (tab[++i])
+			ft_free_null(tab[i]);
+		ft_free_null(tab);
+	}
 }
