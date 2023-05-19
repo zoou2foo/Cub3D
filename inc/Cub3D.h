@@ -56,8 +56,8 @@ typedef struct s_xpm{
 
 
 typedef struct s_raycast {
-    int     pos_X; //start position of player on x
-    int     pos_Y; //start position of player on y
+    double     pos_X; //start position of player on x
+    double     pos_Y; //start position of player on y
     double  dir_playerX; //initial  director of vector of the player on x
     double  dir_playerY; //initial director of vector of the player on y
     double  plane_X; //camera plane of the player on X
@@ -148,5 +148,8 @@ void	key_event(struct mlx_key_data key, void *data);
 
 /*      MOVES           */
 void	go_ahead(t_parse *data);
+void	go_back(t_parse *data);
+void	go_left(t_parse *data);
+void	go_right(t_parse *data);
 
 #endif

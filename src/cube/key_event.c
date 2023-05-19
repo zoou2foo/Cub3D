@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:05:32 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/18 14:35:59 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 10:58:51 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	lets_move(struct mlx_key_data key, t_parse *data)
 {
 	if (key.key == 87)// W; MLX_PRESS && MLX_REPEAT: pour action...
 		go_ahead(data);
-	// else if (key.key == MLX_KEY_A) // A
-	// 	go_left(data);
-	// else if (key.key == MLX_KEY_S) // S
-	// 	go_back(data);
-	// else if (key.key == MLX_KEY_D) // D
-	// 	go_right(data);
+	else if (key.key == 65) // A
+	 	go_left(data);
+	else if (key.key == 83) // S
+		go_back(data);
+	else if (key.key == 68) // D
+	 	go_right(data);
 
 }
 
@@ -60,7 +60,7 @@ void key_event(struct mlx_key_data key, void *data)
 	//printf("Key pressed : %d\n", key.key);
 	if (key.key == 263 || key.key == 262)
 		rotate_cam(key, tmp->ray);
-	if (key.key == 87)
+	if (key.key == 87 || key.key == 83 || key.key == 65 || key.key == 68)
 		lets_move(key, tmp);
 	else if (key.key == 256) //ESC
 	{
