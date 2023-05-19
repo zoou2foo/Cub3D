@@ -42,8 +42,8 @@ void	GetPlayerPoint(t_map *map_data)
 		{
 			if (ft_charsetcmp(map_data->map[y][x], "NSEW") == 0)
 			{
-				map_data->player_x = x + 0.5;
-				map_data->player_y = y + 0.5;
+				map_data->player_x = x;
+				map_data->player_y = y;
 				return ;
 			}
 			x++;

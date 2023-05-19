@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/18 14:24:58 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 08:14:07 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,20 @@ void	setup_struct(t_parse *data)
 {
 	data->ray = malloc(sizeof(t_raycast));
 	data->image = mlx_new_image(data->mlx, w, h);
-	data->ray->move_speed = 0.15; //need to moves
+	data->ray->pos_X = data->map->player_x + 0.5;
+	data->ray->pos_Y = data->map->player_y + 0.5;
+	data->ray->map_x = (int)data->ray->pos_X;
+	data->ray->map_y = (int)data->ray->pos_Y;
+	data->ray->move_speed = 0.15;
 	init_player_pos(data);
 	init_plane(data);
 }
 
 void	init_struct(t_parse *data)
 {
-	data->ray->pos_X = (int)data->map->player_x;//verifie si doit etre int ou double...
-	data->ray->pos_Y = (int)data->map->player_y;
+	data->ray->hit = 0;
+	data->ray->map_x = (int)data->ray->pos_X;//verifie si doit etre int ou double...
+	data->ray->map_y = (int)data->ray->pos_Y;
 }
 
 void	mesure_delta(t_parse *data)
@@ -81,44 +86,44 @@ void	prep_dda(t_parse *data)
 	if (data->ray->ray_dirX < 0) //vers gauche
 	{
 		data->ray->step_x = -1;
-		data->ray->sideX_dist = (data->ray->pos_X - data->map->player_x) * data->ray->delta_X;
+		data->ray->sideX_dist = (data->ray->pos_X - data->ray->map_x) * data->ray->delta_X;
 	}
 	else
 	{
 		data->ray->step_x = 1; //vers droite
-		data->ray->sideX_dist = (data->map->player_x + 1.0 - data->ray->pos_X) * data->ray->delta_X;
+		data->ray->sideX_dist = (data->ray->map_x + 1.0 - data->ray->pos_X) * data->ray->delta_X;
 	}
 	if (data->ray->ray_dirY < 0) //en arriere
 	{
 		data->ray->step_y = -1;
-		data->ray->sideY_dist = (data->ray->pos_Y - data->map->player_y) * data->ray->delta_Y;
+		data->ray->sideY_dist = (data->ray->pos_Y - data->ray->map_y) * data->ray->delta_Y;
 	}
 	else
 	{
 		data->ray->step_y = 1; //en avant
-		data->ray->sideY_dist = (data->map->player_y + 1.0 - data->ray->pos_Y) * data->ray->delta_Y;
+		data->ray->sideY_dist = (data->ray->map_y + 1.0 - data->ray->pos_Y) * data->ray->delta_Y;
 	}
 }
 
 void	dda_algo(t_parse *data)
 {
-	while (1) //peut-etre mettre variable hit
+	while (data->ray->hit == 0) //peut-etre mettre variable hit
 	{
 		if (data->ray->sideX_dist < data->ray->sideY_dist)
 		{
 			data->ray->sideX_dist += data->ray->delta_X;
-			data->ray->pos_X += data->ray->step_x;
+			data->ray->map_x += data->ray->step_x;
 			data->ray->side = 0;
 		}
 		else
 		{
 			data->ray->sideY_dist += data->ray->delta_Y;
-			data->ray->pos_Y += data->ray->step_y;
+			data->ray->map_y += data->ray->step_y;
 			data->ray->side = 1;
 		}
 		//hit a wall or not??
-		if (data->map->map[data->ray->pos_Y][data->ray->pos_X] == '1')//or should I put > 0?? We know the wall is 1
-			break ;
+		if (data->map->map[data->ray->map_y][data->ray->map_x] == '1')//or should I put > 0?? We know the wall is 1
+			data->ray->hit = 1;
 	}
 }
 
@@ -178,7 +183,7 @@ void	add_tex_wall(t_parse *data, int index)
 		if (data->ray->side == 1)
 		{
 			if (data->ray->ray_dirY < 0) //south
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_so_tex->tab[i % data->xpm->tab_so_tex->height][index % data->xpm->tab_so_tex->width]); //orange
+				mlx_put_pixel(data->image, index, i, data->xpm->tab_so_tex->tab[i % (data->xpm->tab_so_tex->height)][index % (data->xpm->tab_so_tex->width)]); //orange
 			else //north
 				mlx_put_pixel(data->image, index, i, data->xpm->tab_no_tex->tab[i % data->xpm->tab_no_tex->height][index % data->xpm->tab_no_tex->width]); //red
 		}
@@ -205,10 +210,12 @@ void	go_raycast(t_parse *data)
 
 	index = 0;
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
+	data->map->player_x = data->ray->pos_X; //update la pos du joueur dans la map
+	data->map->player_y = data->ray->pos_Y;
 	while (index < w)
 	{
 		init_struct(data);
-		cameraX = (2 * index) / (double)w - 1;
+		cameraX = 2 * index / (double)w - 1;
 		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X * cameraX;
 		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y * cameraX;
 		mesure_delta(data);

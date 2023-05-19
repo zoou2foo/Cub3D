@@ -52,7 +52,6 @@ typedef struct s_xpm{
     t_tex     *tab_so_tex;
     t_tex     *tab_ea_tex;
     t_tex     *tab_we_tex;
-    struct t_parse *data;
 }   t_xpm;
 
 
@@ -78,7 +77,10 @@ typedef struct s_raycast {
     int     line_height; //to know the height of the line to draw
     int     draw_start_pt;
     int     draw_end_pt;
+    int     map_x;//est-ce que je frappe quelque chose sur x
+    int     map_y;//est-ce que je frappe quelque chose sur y
     double  move_speed;
+
 } t_raycast;
 
 typedef struct s_parse {

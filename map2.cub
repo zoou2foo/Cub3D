@@ -1,17 +1,17 @@
-EA                                                       fdsfdsfsd
-NO 				   			 	 	 	 	 			fdsfs     ffsdfds
+EA ./textures/Stardew_Brick_Wall_Pizza.xpm42
+NO ./textures/Stardew_Brick_Wall_Green_Squares.xpm42
 
-WE                 			              fsdfdsfsd g
+WE ./textures/Stardew_Brick_Wall_Multi-Colored.xpm42
 
 jdfkhdsfjksd
 
-SO       gdfgdf
+SO ./textures/Stardew_Brick_Wall_Circuit_Pattern.xpm42
 
 F 255,    255,     254
 C 0, 10,    		0
 
 1111111
-100N001
 1000001
+100N001
 1000001
 1111111
