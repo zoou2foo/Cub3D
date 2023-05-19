@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/19 15:29:31 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 16:17:36 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,8 +244,18 @@ void	start_raycast(t_parse *data)
 	go_raycast(data);
 	mlx_key_hook(data->mlx, key_event, (void*)data);
 	mlx_loop(data->mlx);
+	mlx_close_window(data->mlx);
 	mlx_terminate(data->mlx);
 	ft_free_tab((void*)data->map->map);
+	ft_free_tab((void*)data->xpm->tab_ea_tex);
+	ft_free_tab((void*)data->xpm->tab_we_tex);
+	ft_free_tab((void*)data->xpm->tab_so_tex);
+	ft_free_tab((void*)data->xpm->tab_no_tex);
+	ft_free_tab((void*)data->tex->tab);
+	ft_free_null(data->tex);
+	ft_free_null(data->xpm);
+	ft_free_null(data->map);
+	ft_free_null(data->ray);
 	ft_free_null(data);
 	exit (EXIT_SUCCESS);
 }

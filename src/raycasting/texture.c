@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/19 15:22:43 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 16:10:39 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	add_texture(t_parse *data)
 	data->xpm->tab_we_tex = create_array_pxl(data->xpm->WE);
 	data->xpm->tab_so_tex = create_array_pxl(data->xpm->SO);
 	data->xpm->tab_no_tex = create_array_pxl(data->xpm->NO);
-
 }

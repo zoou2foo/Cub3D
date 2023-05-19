@@ -98,6 +98,7 @@ typedef struct s_parse {
     t_map               *map;
     t_raycast           *ray;
     t_xpm               *xpm;
+    t_tex               *tex;
 	enum e_error_code	error;
 } t_parse;
 

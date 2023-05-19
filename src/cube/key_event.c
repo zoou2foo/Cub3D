@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:05:32 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/19 15:30:18 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/19 16:17:58 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,15 @@ void key_event(struct mlx_key_data key, void *data)
 		mlx_terminate(tmp->mlx);
 		printf("exit cub3d\n");
 		ft_free_tab((void*)tmp->map->map);
+		ft_free_tab((void*)tmp->xpm->tab_ea_tex);
+		ft_free_tab((void*)tmp->xpm->tab_we_tex);
+		ft_free_tab((void*)tmp->xpm->tab_so_tex);
+		ft_free_tab((void*)tmp->xpm->tab_no_tex);
+		ft_free_tab((void*)tmp->tex->tab);
+		ft_free_null(tmp->tex);
+		ft_free_null(tmp->xpm);
+		ft_free_null(tmp->map);
+		ft_free_null(tmp->ray);
 		ft_free_null(data);
 		exit (1);
 	}
