@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 LIBFT_DIR = inc/Libft/
 MLX_DIR = MLX42/
