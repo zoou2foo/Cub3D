@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:22:58 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/19 15:30:38 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/20 09:34:25 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	start_mlx(t_parse *data)
 	{
 		mlx_delete_image(data->mlx, data->image);
 		mlx_close_window(data->mlx);
-		ft_free_tab((void*)data->map->map);
-		ft_free_null(data);
 		exit(EXIT_FAILURE);
 	}
 	mlx_loop(data->mlx);

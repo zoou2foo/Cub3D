@@ -156,5 +156,6 @@ void	go_right(t_parse *data);
 /*      FREE STUFF      */
 void	ft_free_null(void *ptr);
 void	ft_free_tab(void **tab);
+void	free_everything(t_parse *data);
 
 #endif
