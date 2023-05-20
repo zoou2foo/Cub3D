@@ -6,12 +6,16 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:08:06 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/20 10:07:29 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/20 16:19:08 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
+/**
+ * Function to free a pointer
+ * @param ptr to free
+ */
 void	ft_free_null(void *ptr)
 {
 	if (ptr)
@@ -19,6 +23,10 @@ void	ft_free_null(void *ptr)
 	ptr = NULL;
 }
 
+/**
+ * Function to free a double pointer array
+ * @param tab in void so it can take any type of variable
+ */
 void	ft_free_tab(void **tab)
 {
 	int	i;
