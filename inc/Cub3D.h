@@ -42,12 +42,12 @@ typedef struct s_tex{
 } t_tex;
 
 typedef struct s_xpm{
-    xpm_t   *NO;
+    xpm_t   *NO; //a mettre en local
     xpm_t   *SO;
     xpm_t   *EA;
     xpm_t   *WE;
-    int     width;
-    int     height;
+    // int     width;
+    // int     height;
     t_tex     *tab_no_tex;
     t_tex     *tab_so_tex;
     t_tex     *tab_ea_tex;
@@ -80,6 +80,7 @@ typedef struct s_raycast {
     int     map_x;//est-ce que je frappe quelque chose sur x
     int     map_y;//est-ce que je frappe quelque chose sur y
     double  move_speed;
+    int     tex_x;
 
 } t_raycast;
 
@@ -98,7 +99,6 @@ typedef struct s_parse {
     t_map               *map;
     t_raycast           *ray;
     t_xpm               *xpm;
-    t_tex               *tex;
 	enum e_error_code	error;
 } t_parse;
 

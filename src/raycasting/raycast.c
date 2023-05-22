@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/22 10:25:43 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/22 14:23:49 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,49 +149,82 @@ void	draw_line(t_raycast *ray)
 		ray->draw_end_pt = h - 1;
 }
 
+void	put_texture(t_parse *data, t_tex *text, int *i)
+{
+	double	dist;
+	double	pos;
+	int		tex_y;
+	int		j;
+
+	dist = 1.0 * text->height / data->ray->perpendicular_wallDist;
+	pos = ((double) data->ray->draw_start_pt - (double) h / 2 + (double) data->ray->perpendicular_wallDist / 2) * dist;
+	if (pos < 0)
+		pos = 0;
+	j = data->ray->draw_start_pt - 1;
+	while (++j < data->ray->draw_end_pt)
+	{
+		tex_y = (int) pos;
+		if (pos > text->height - 1)
+			pos = text->height - 1;
+		pos += dist;
+		mlx_put_pixel(data->image, *i, j, text->tab[tex_y][data->ray->tex_x]);
+	}
+}
+
+void	prepare_teX(t_parse *data, t_tex *text, int *i)
+{
+	double	hit;
+
+	hit = 0;
+	if (data->ray->side == 0)
+		hit = data->ray->pos_Y + data->ray->perpendicular_wallDist * data->ray->ray_dirY;
+	else if (data->ray->side == 1)
+		hit = data->ray->pos_X + data->ray->perpendicular_wallDist * data->ray->ray_dirX;
+	hit -= (int) hit;
+	data->ray->tex_x = (int)(hit * (double) text->width);
+	if (data->ray->side == 0 && data->ray->ray_dirX > 0)
+		data->ray->tex_x = text->width - data->ray->tex_x - 1;
+	if (data->ray->side == 1 && data->ray->ray_dirY < 0)
+		data->ray->tex_x = text->width - data->ray->tex_x - 1;
+	put_texture(data, text, i);
+}
+
 
 //need 2 ratios. 1st: Where you are in the wall -> where are you in the image? (texture)
 // 2nd ratio: ratio mur:image (so it can fit. How much do you have to reduce the image?). Starting from the top
 // Then, with ratios, then we print (mlx_put_pixel).
-
 void	add_tex_wall(t_parse *data, int index)
 {
 	int		i;
-	double	ratio_hit_img;
-	double	ratio_img_to_wall;
 
 	i = 0;
-	ratio_hit_img =
-	ratio_img_to_wall =
 	while (i < data->ray->draw_start_pt) //ceiling
 	{
 		mlx_put_pixel(data->image, index, i, data->CeilingColor);
 		i++;
 	}
-	while (i < data->ray->draw_end_pt) //add texture here for walls
+	if (data->ray->side == 1)
 	{
-		if (data->ray->side == 1)
-		{
-			if (data->ray->ray_dirY < 0) //south
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_so_tex->tab[i % (data->xpm->tab_so_tex->height)][index % (data->xpm->tab_so_tex->width)]); //orange
-			else //north
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_no_tex->tab[i % data->xpm->tab_no_tex->height][index % data->xpm->tab_no_tex->width]); //red
-		}
-		else if (data->ray->side == 0)
-		{
-			if(data->ray->ray_dirX > 0) //east
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_ea_tex->tab[i % data->xpm->tab_ea_tex->height][index % data->xpm->tab_ea_tex->width]); //pink;
-			else //west
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_we_tex->tab[i % data->xpm->tab_we_tex->height][index % data->xpm->tab_we_tex->width]); //yellow
-		}
-		i++;
+		if (data->ray->ray_dirY < 0) //south
+			prepare_teX(data, data->xpm->tab_so_tex, &index);
+		else //north
+			prepare_teX(data, data->xpm->tab_no_tex, &index);
 	}
+	else if (data->ray->side == 0)
+	{
+		if(data->ray->ray_dirX > 0) //east
+			prepare_teX(data, data->xpm->tab_ea_tex, &index);
+		else //west
+			prepare_teX(data, data->xpm->tab_we_tex, &index);
+	}
+	i = data->ray->draw_end_pt;
 	while (i < h - 1) //floor
 	{
 		mlx_put_pixel(data->image, index, i, data->FloorColor);
 		i++;
 	}
 }
+
 
 void	go_raycast(t_parse *data)
 {
@@ -213,7 +246,6 @@ void	go_raycast(t_parse *data)
 		dda_algo(data);
 		get_perpendicular(data->ray);
 		draw_line(data->ray);
-		//function to look if side 1, 2, 3 to then, select the correct array of int
 		add_tex_wall(data, index);
 		index++;
 	}
