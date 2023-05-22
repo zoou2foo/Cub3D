@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/20 09:45:20 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/22 08:04:15 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,9 +175,9 @@ void	add_tex_wall(t_parse *data, int index)
 	//double	w_ratio_texpos;
 
 	i = 0;
-	//ratio_step = 
+	//ratio_step =
 	//w_ratio_texpos = data->
-	while (i < data->ray->draw_start_pt) //plafond
+	while (i < data->ray->draw_start_pt) //ceiling
 	{
 		mlx_put_pixel(data->image, index, i, data->CeilingColor);
 		i++;
@@ -187,20 +187,20 @@ void	add_tex_wall(t_parse *data, int index)
 		if (data->ray->side == 1)
 		{
 			if (data->ray->ray_dirY < 0) //south
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_so_tex->tab[i % (data->xpm->tab_so_tex->height)][index % (data->xpm->tab_so_tex->width)]); //orange
+				mlx_put_pixel(data->image, index, i, data->xpm->tab_so_tex->tab[i % (data->xpm->tab_so_tex->height)][index % (data->xpm->tab_so_tex->width)]);
 			else //north
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_no_tex->tab[i % data->xpm->tab_no_tex->height][index % data->xpm->tab_no_tex->width]); //red
+				mlx_put_pixel(data->image, index, i, data->xpm->tab_no_tex->tab[i % data->xpm->tab_no_tex->height][index % data->xpm->tab_no_tex->width]);
 		}
 		else if (data->ray->side == 0)
 		{
 			if(data->ray->ray_dirX > 0) //east
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_ea_tex->tab[i % data->xpm->tab_ea_tex->height][index % data->xpm->tab_ea_tex->width]); //pink;
+				mlx_put_pixel(data->image, index, i, data->xpm->tab_ea_tex->tab[i % data->xpm->tab_ea_tex->height][index % data->xpm->tab_ea_tex->width]);
 			else //west
-				mlx_put_pixel(data->image, index, i, data->xpm->tab_we_tex->tab[i % data->xpm->tab_we_tex->height][index % data->xpm->tab_we_tex->width]); //yellow
+				mlx_put_pixel(data->image, index, i, data->xpm->tab_we_tex->tab[i % data->xpm->tab_we_tex->height][index % data->xpm->tab_we_tex->width]);
 		}
 		i++;
 	}
-	while (i < h - 1) //plancher
+	while (i < h - 1) //floor
 	{
 		mlx_put_pixel(data->image, index, i, data->FloorColor);
 		i++;
