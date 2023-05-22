@@ -1,11 +1,11 @@
 EA ./textures/blue-brick-texture.xpm42
 NO ./textures/yellow-brick-texture.xpm42
 
-WE ./textures/Stardew_Brick_Wall_Multi-Colored.xpm42
+WE ./textures/Sponge-WallPaper.xpm42
 
 jdfkhdsfjksd
 
-SO ./textures/Stardew_Brick_Wall_Circuit_Pattern.xpm42
+SO ./textures/Nyan-WallPaper.xpm42
 
 F 0,    180,     40
 C 0, 20,    		160

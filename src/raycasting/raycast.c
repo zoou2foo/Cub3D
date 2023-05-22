@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/22 08:44:27 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/22 10:25:43 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	add_tex_wall(t_parse *data, int index)
 	i = 0;
 	ratio_hit_img =
 	ratio_img_to_wall =
-	while (i < data->ray->draw_start_pt) //plafond
+	while (i < data->ray->draw_start_pt) //ceiling
 	{
 		mlx_put_pixel(data->image, index, i, data->CeilingColor);
 		i++;
@@ -186,7 +186,7 @@ void	add_tex_wall(t_parse *data, int index)
 		}
 		i++;
 	}
-	while (i < h - 1) //plancher
+	while (i < h - 1) //floor
 	{
 		mlx_put_pixel(data->image, index, i, data->FloorColor);
 		i++;
