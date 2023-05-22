@@ -163,3 +163,23 @@ void	go_raycast(t_parse *data)
 		index++;
 	}
 }
+
+/*		texture some old code		*/
+void	put_tex(t_tex *tex, mlx_image_t *image, int index, int count)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < tex->height)
+	{
+		while (x < tex->width)
+		{
+			mlx_put_pixel(image, index, count, tex->tab[y][x]);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+}

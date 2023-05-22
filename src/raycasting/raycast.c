@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/20 09:45:20 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/22 08:44:27 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,34 +149,20 @@ void	draw_line(t_raycast *ray)
 		ray->draw_end_pt = h - 1;
 }
 
-void	put_tex(t_tex *tex, mlx_image_t *image, int index, int count)
-{
-	int	x;
-	int	y;
 
-	x = 0;
-	y = 0;
-	while (y < tex->height) //comparer a quoi??
-	{
-		while (x < tex->width) //comparer a quoi??
-		{
-			mlx_put_pixel(image, index, count, tex->tab[y][x]);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-}
+//need 2 ratios. 1st: Where you are in the wall -> where are you in the image? (texture)
+// 2nd ratio: ratio mur:image (so it can fit. How much do you have to reduce the image?). Starting from the top
+// Then, with ratios, then we print (mlx_put_pixel).
 
 void	add_tex_wall(t_parse *data, int index)
 {
 	int		i;
-	//double	ratio_step;
-	//double	w_ratio_texpos;
+	double	ratio_hit_img;
+	double	ratio_img_to_wall;
 
 	i = 0;
-	//ratio_step = 
-	//w_ratio_texpos = data->
+	ratio_hit_img =
+	ratio_img_to_wall =
 	while (i < data->ray->draw_start_pt) //plafond
 	{
 		mlx_put_pixel(data->image, index, i, data->CeilingColor);
