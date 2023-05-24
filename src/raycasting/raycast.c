@@ -137,14 +137,13 @@ void	get_perpendicular(t_raycast *ray) //to avoid fish eye!
 
 void	draw_line(t_raycast *ray)
 {
-	int	line_height;
 	//to calculate height of line to draw on screen
-	line_height = (int)(h / ray->perpendicular_wallDist);
+	ray->line_height = (int)(h / ray->perpendicular_wallDist);
 	//calculate lowest and highest pixel to fill in current "stripe"
-	ray->draw_start_pt = -line_height / 2 + h / 2;
+	ray->draw_start_pt = -ray->line_height / 2 + h / 2;
 	if (ray->draw_start_pt < 0)
 		ray->draw_start_pt = 0;
-	ray->draw_end_pt = line_height / 2 + h / 2;
+	ray->draw_end_pt = ray->line_height / 2 + h / 2;
 	if (ray->draw_end_pt >= h)
 		ray->draw_end_pt = h - 1;
 }
@@ -156,8 +155,8 @@ void	put_texture(t_parse *data, t_tex *text, int *i)
 	int		tex_y;
 	int		j;
 
-	dist = 1.0 * text->height / data->ray->perpendicular_wallDist;
-	pos = ((double) data->ray->draw_start_pt - (double) h / 2 + (double) data->ray->perpendicular_wallDist / 2) * dist;
+	dist = 1.0 * text->height / data->ray->line_height;
+	pos = ((double) data->ray->draw_start_pt - (double) h / 2 + (double) data->ray->line_height / 2) * dist;
 	if (pos < 0)
 		pos = 0;
 	j = data->ray->draw_start_pt - 1;
@@ -195,7 +194,7 @@ void	prepare_teX(t_parse *data, t_tex *text, int *i)
 // Then, with ratios, then we print (mlx_put_pixel).
 void	add_tex_wall(t_parse *data, int index)
 {
-	int		i;
+	long int	i;
 
 	i = 0;
 	while (i < data->ray->draw_start_pt) //ceiling
@@ -217,7 +216,10 @@ void	add_tex_wall(t_parse *data, int index)
 		else //west
 			prepare_teX(data, data->xpm->tab_we_tex, &index);
 	}
-	i = data->ray->draw_end_pt;
+	if (data->ray->draw_start_pt > data->ray->draw_end_pt)
+		i = h;
+	else
+		i = data->ray->draw_end_pt;
 	while (i < h - 1) //floor
 	{
 		mlx_put_pixel(data->image, index, i, data->FloorColor);
