@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:47:53 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:13:50 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:39:37 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,29 @@ typedef struct s_xpm{
 }	t_xpm;
 
 typedef struct s_raycast {
-	double	pos_X; //start position of player on x
-	double	pos_Y; //start position of player on y
-	double	dir_playerX; //initial  director of vector of the player on x
-	double	dir_playerY; //initial director of vector of the player on y
-	double	plane_X; //camera plane of the player on X
-	double	plane_Y; //camera plane of the player on Y
-	double	cameraX; //x-coordinate in camera space
-	double	ray_dirX; //ray direction on x
-	double	ray_dirY; //ray direction on y
-	double	sideX_dist; //length of ray from current pos to next x
-	double	sideY_dist; //length of ray from current pos to next y
-	double	delta_X; //distance/length of ray from 1 x-side to the next x-side; not at starting point; further on the line
-	double	delta_Y; //distance/length of ray from 1 y-side to the next y-side
-	double	perpendicular_wallDist; //distance/length from the point hit on the wall to the "camera plane" line.
-	int		step_x; //to go in x first
-	int		step_y; //to go in y first
-	int		hit; //flag to check if a wall was hit or not; 0 = no hit
-	int		side; //flag to check if it was a NS or EW wall hit. sideX_dist < sideY_dist = side 0. sideX_dist > sideY_dist = side 1.
-	int		line_height; //to know the height of the line to draw
+	double	pos_X;
+	double	pos_Y;
+	double	dir_playerX;
+	double	dir_playerY;
+	double	plane_X;
+	double	plane_Y;
+	double	cameraX;
+	double	ray_dirX;
+	double	ray_dirY;
+	double	sideX_dist;
+	double	sideY_dist;
+	double	delta_X;
+	double	delta_Y;
+	double	perpendicular_wallDist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
 	int		draw_start_pt;
 	int		draw_end_pt;
-	int		map_x;//est-ce que je frappe quelque chose sur x
-	int		map_y;//est-ce que je frappe quelque chose sur y
+	int		map_x;
+	int		map_y;
 	double	move_speed;
 	int		tex_x;
 }	t_raycast;
