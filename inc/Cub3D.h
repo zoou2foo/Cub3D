@@ -107,6 +107,7 @@ void            ParseLine(char *line, t_parse* MapCheck);
 t_parse         *ParseInfo(char *map);
 void            ParsePath(t_parse* MapCheck, char *line, int j);
 void            ParseColor(t_parse *data, char *line, int j);
+int				Extract_Color(t_parse *data, char *line, int nb_bits, int j);
 
 /*      GET             */
 char            *GetPath(char *line);

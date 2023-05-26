@@ -1,5 +1,5 @@
 EA ./textures/spy-x-family.xpm42
-NO ./textures/yellow-brick-texture.xpm42
+NO ./textures/yellow-brick-texture.xpm42 uyguigiugjkh
 
 WE ./textures/Sponge-WallPaper.xpm42
 
@@ -7,8 +7,8 @@ jdfkhdsfjksd
 
 SO ./textures/NyanCat.xpm42
 
-F 0,    180,     40
-C 0, 20,    		160
+C 200 ,  45  	,       45
+F 0 ,   180  , 50
 
         1111111111111111111111111
         10000000001100000N0000001
