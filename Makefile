@@ -20,6 +20,9 @@ SRCS = 	src/main.c\
 		src/free_stuff.c\
 		src/raycasting/raycast.c\
 		src/raycasting/texture.c\
+		src/raycasting/texture_utils.c\
+		src/raycasting/init_raycast.c\
+		src/raycasting/prep_algo.c\
 		src/cube/init_game.c\
 		src/cube/key_event.c\
 		src/cube/moves.c\
@@ -31,7 +34,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc -g
 CFLAGS = -Wall -Werror -Wextra
-MLX = MLX42/libmlx42.a 
+MLX = MLX42/libmlx42.a
 MLX_FLAG = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib
 NORM = norminette
 RM = rm -rf
@@ -55,7 +58,7 @@ mlx:
 		@echo "____Les fichiers tests ont été créés____"
 
 leaks: all
-	valgrind --show-leak-kinds=all --leak-check=full ./cub3d map.cub
+	leaks --atExit -- ./cub3D wrong_map.cub
 clean:
 		${RM} ${NAME} ${NAME}.dSYM
 		${RM} mlx

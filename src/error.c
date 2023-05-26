@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:29:42 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/11 13:55:38 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:36:58 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_ParseInfo(t_parse *data)
 {
 	if (data->error != GOOD)
 		;
-	else if (data->NO == NULL || data->SO == NULL || data->WE == NULL\
+	else if (data->NO == NULL || data->SO == NULL || data->WE == NULL
 		|| data->EA == NULL)
 		data->error = PATH;
 	else if (data->map->first_line == false || data->map->last_line == false)
@@ -52,8 +52,8 @@ void	check_ParseInfo(t_parse *data)
 
 void	print_info(t_parse *data)
 {
-	printf("%s\n%s\n%s\n%s\n%u\n%u\n%c\n%d\n", data->NO, data->SO, data->WE,\
-    data->EA, data->FloorColor, data->CeilingColor, data->map->player,\
+	printf("%s\n%s\n%s\n%s\n%u\n%u\n%c\n%d\n", data->NO, data->SO, data->WE, \
+	data->EA, data->FloorColor, data->CeilingColor, data->map->player,\
 	data->MapBeg);
 	print_double_tab(data->map->map);
 }

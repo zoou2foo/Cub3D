@@ -6,108 +6,18 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/22 14:23:49 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:20:55 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
 
-/**
-* @param data blabla
-*/
+/*	FOUR FUNCTIONS	*/
 
-void	init_player_pos(t_parse *data)
-{
-	if (data->map->player == 'N')
-	{
-		data->ray->dir_playerX = 0;
-		data->ray->dir_playerY = -1;
-	}
-	else if (data->map->player == 'S')
-	{
-		data->ray->dir_playerX = 0;
-		data->ray->dir_playerY = 1;
-	}
-	else if (data->map->player == 'W')
-	{
-		data->ray->dir_playerX = -1;
-		data->ray->dir_playerY = 0;
-	}
-	else if (data->map->player == 'E')
-	{
-		data->ray->dir_playerX = 1;
-		data->ray->dir_playerY = 0;
-	}
-}
-
-void init_plane(t_parse *data)
-{
-	data->ray->plane_X = data->ray->dir_playerY * -0.66;
-	if (data->ray->dir_playerX != 0)
-		data->ray->plane_Y = data->ray->dir_playerX * 0.66;
-	else
-		data->ray->plane_Y = 0.0;
-}
-
-void	setup_struct(t_parse *data)
-{
-	data->ray = malloc(sizeof(t_raycast));
-	data->image = mlx_new_image(data->mlx, w, h);
-	data->ray->pos_X = data->map->player_x + 0.5;
-	data->ray->pos_Y = data->map->player_y + 0.5;
-	data->ray->map_x = (int)data->ray->pos_X;
-	data->ray->map_y = (int)data->ray->pos_Y;
-	data->ray->move_speed = 0.15;
-	init_player_pos(data);
-	init_plane(data);
-}
-
-void	init_struct(t_parse *data)
-{
-	data->ray->hit = 0;
-	data->ray->map_x = (int)data->ray->pos_X;//verifie si doit etre int ou double...
-	data->ray->map_y = (int)data->ray->pos_Y;
-}
-
-void	mesure_delta(t_parse *data)
-{
-	if (data->ray->ray_dirX == 0)
-		data->ray->delta_X = 1e30;
-	else
-		data->ray->delta_X = fabs(1 / data->ray->ray_dirX);
-	if (data->ray->ray_dirY == 0)
-		data->ray->delta_Y = 1e30;
-	else
-		data->ray->delta_Y = fabs(1 / data->ray->ray_dirY);
-}
-
-void	prep_dda(t_parse *data)
-{
-	if (data->ray->ray_dirX < 0) //vers gauche
-	{
-		data->ray->step_x = -1;
-		data->ray->sideX_dist = (data->ray->pos_X - data->ray->map_x) * data->ray->delta_X;
-	}
-	else
-	{
-		data->ray->step_x = 1; //vers droite
-		data->ray->sideX_dist = (data->ray->map_x + 1.0 - data->ray->pos_X) * data->ray->delta_X;
-	}
-	if (data->ray->ray_dirY < 0) //en arriere
-	{
-		data->ray->step_y = -1;
-		data->ray->sideY_dist = (data->ray->pos_Y - data->ray->map_y) * data->ray->delta_Y;
-	}
-	else
-	{
-		data->ray->step_y = 1; //en avant
-		data->ray->sideY_dist = (data->ray->map_y + 1.0 - data->ray->pos_Y) * data->ray->delta_Y;
-	}
-}
-
+//hit a wall or not?? (2nd if)
 void	dda_algo(t_parse *data)
 {
-	while (data->ray->hit == 0) //peut-etre mettre variable hit
+	while (data->ray->hit == 0)
 	{
 		if (data->ray->sideX_dist < data->ray->sideY_dist)
 		{
@@ -121,128 +31,58 @@ void	dda_algo(t_parse *data)
 			data->ray->map_y += data->ray->step_y;
 			data->ray->side = 1;
 		}
-		//hit a wall or not??
-		if (data->map->map[data->ray->map_y][data->ray->map_x] == '1')//or should I put > 0?? We know the wall is 1
+		if (data->map->map[data->ray->map_y][data->ray->map_x] == '1')
 			data->ray->hit = 1;
 	}
 }
 
-void	get_perpendicular(t_raycast *ray) //to avoid fish eye!
-{
-	if (ray->side == 0)
-		ray->perpendicular_wallDist = ray->sideX_dist - ray->delta_X;
-	else
-		ray->perpendicular_wallDist = ray->sideY_dist - ray->delta_Y;
-}
-
-void	draw_line(t_raycast *ray)
-{
-	//to calculate height of line to draw on screen
-	ray->line_height = (int)(h / ray->perpendicular_wallDist);
-	//calculate lowest and highest pixel to fill in current "stripe"
-	ray->draw_start_pt = -ray->line_height / 2 + h / 2;
-	if (ray->draw_start_pt < 0)
-		ray->draw_start_pt = 0;
-	ray->draw_end_pt = ray->line_height / 2 + h / 2;
-	if (ray->draw_end_pt >= h)
-		ray->draw_end_pt = h - 1;
-}
-
-void	put_texture(t_parse *data, t_tex *text, int *i)
-{
-	double	dist;
-	double	pos;
-	int		tex_y;
-	int		j;
-
-	dist = 1.0 * text->height / data->ray->line_height;
-	pos = ((double) data->ray->draw_start_pt - (double) h / 2 + (double) data->ray->line_height / 2) * dist;
-	if (pos < 0)
-		pos = 0;
-	j = data->ray->draw_start_pt - 1;
-	while (++j < data->ray->draw_end_pt)
-	{
-		tex_y = (int) pos;
-		if (pos > text->height - 1)
-			pos = text->height - 1;
-		pos += dist;
-		mlx_put_pixel(data->image, *i, j, text->tab[tex_y][data->ray->tex_x]);
-	}
-}
-
-void	prepare_teX(t_parse *data, t_tex *text, int *i)
-{
-	double	hit;
-
-	hit = 0;
-	if (data->ray->side == 0)
-		hit = data->ray->pos_Y + data->ray->perpendicular_wallDist * data->ray->ray_dirY;
-	else if (data->ray->side == 1)
-		hit = data->ray->pos_X + data->ray->perpendicular_wallDist * data->ray->ray_dirX;
-	hit -= (int) hit;
-	data->ray->tex_x = (int)(hit * (double) text->width);
-	if (data->ray->side == 0 && data->ray->ray_dirX > 0)
-		data->ray->tex_x = text->width - data->ray->tex_x - 1;
-	if (data->ray->side == 1 && data->ray->ray_dirY < 0)
-		data->ray->tex_x = text->width - data->ray->tex_x - 1;
-	put_texture(data, text, i);
-}
-
-
-//need 2 ratios. 1st: Where you are in the wall -> where are you in the image? (texture)
-// 2nd ratio: ratio mur:image (so it can fit. How much do you have to reduce the image?). Starting from the top
-// Then, with ratios, then we print (mlx_put_pixel).
 void	add_tex_wall(t_parse *data, int index)
 {
 	long int	i;
 
-	i = 0;
-	while (i < data->ray->draw_start_pt) //ceiling
-	{
-		mlx_put_pixel(data->image, index, i, data->CeilingColor);
-		i++;
-	}
+	i = -1;
+	while (++i < data->ray->draw_start_pt)
+		mlx_put_pixel(data->image, index, i, data->ceilingcolor);
 	if (data->ray->side == 1)
 	{
-		if (data->ray->ray_dirY < 0) //south
-			prepare_teX(data, data->xpm->tab_so_tex, &index);
-		else //north
-			prepare_teX(data, data->xpm->tab_no_tex, &index);
+		if (data->ray->ray_dirY < 0)
+			prepare_tex(data, data->xpm->tab_so_tex, &index);
+		else
+			prepare_tex(data, data->xpm->tab_no_tex, &index);
 	}
 	else if (data->ray->side == 0)
 	{
-		if(data->ray->ray_dirX > 0) //east
-			prepare_teX(data, data->xpm->tab_ea_tex, &index);
-		else //west
-			prepare_teX(data, data->xpm->tab_we_tex, &index);
+		if (data->ray->ray_dirX > 0)
+			prepare_tex(data, data->xpm->tab_ea_tex, &index);
+		else
+			prepare_tex(data, data->xpm->tab_we_tex, &index);
 	}
 	if (data->ray->draw_start_pt > data->ray->draw_end_pt)
-		i = h;
+		i = H;
 	else
-		i = data->ray->draw_end_pt;
-	while (i < h - 1) //floor
-	{
-		mlx_put_pixel(data->image, index, i, data->FloorColor);
-		i++;
-	}
+		i = data->ray->draw_end_pt - 1;
+	while (++i < H - 1)
+		mlx_put_pixel(data->image, index, i, data->floorcolor);
 }
 
-
+//"les yeux" du joueur (cameraX)
 void	go_raycast(t_parse *data)
 {
 	int		index;
-	double	cameraX; //"les yeux" du joueur
+	double	camera_x;
 
 	index = 0;
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
-	data->map->player_x = data->ray->pos_X; //update la pos du joueur dans la map
+	data->map->player_x = data->ray->pos_X;
 	data->map->player_y = data->ray->pos_Y;
-	while (index < w)
+	while (index < W)
 	{
 		init_struct(data);
-		cameraX = 2 * index / (double)w - 1;
-		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X * cameraX;
-		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y * cameraX;
+		camera_x = 2 * index / (double)W - 1;
+		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X
+			* camera_x;
+		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y
+			* camera_x;
 		mesure_delta(data);
 		prep_dda(data);
 		dda_algo(data);
@@ -255,14 +95,15 @@ void	go_raycast(t_parse *data)
 
 void	start_raycast(t_parse *data)
 {
-	if (!(data->mlx = mlx_init(w, h, "cub3d", true)))
+	data->mlx = mlx_init(W, H, "cub3d", true);
+	if (!data->mlx)
 	{
-		mlx_strerror(mlx_errno); //fonction a utiliser pour gerer les erreurs
-		exit(EXIT_FAILURE); //do we need to change the error message? to make sure stuff is free?
+		mlx_strerror(mlx_errno);
+		exit(EXIT_FAILURE);
 	}
 	setup_struct(data);
 	go_raycast(data);
-	mlx_key_hook(data->mlx, key_event, (void*)data);
+	mlx_key_hook(data->mlx, key_event, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->image);
 	mlx_terminate(data->mlx);
