@@ -10,77 +10,63 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "../inc/Cub3D.h"
 
-void ParseLine(char *line, t_parse* MapCheck)
+void parse_line(char *line, t_parse* map_check)
 {
     int				i;
     int				j;
-    static  bool		treat_map;
-    int				r_cmp;
+    static  bool	treat_map;
 
     i = -1;
     j = 0;
-    r_cmp = -1;
     while (ft_isspace(line[++i]) == 0)
         ;
     if (treat_map == false && ft_isdigit(line[i]))
         treat_map = true;
     if (treat_map == true)
     {
-        ParseMap(line, MapCheck);
+        parse_map(line, map_check);
         return ;
     }
-    while ((r_cmp = (ft_strncmp(&line[i], g_side_tab[j], 3))) != 0 && j < 4)
+    while ((ft_strncmp(&line[i], g_side_tab[j], 3)) != 0 && j < 4)
         j++;
-    if (j < 4 && r_cmp == 0)
-        ParsePath(MapCheck, &line[i], j);
-    while (j < 6 && (r_cmp = ft_strncmp(&line[i], g_side_tab[j], 2)) != 0)
+    if (j < 4)
+        parse_path(map_check, &line[i], j);
+    while (j < 6 && ft_strncmp(&line[i], g_side_tab[j], 2) != 0)
         j++;
-	if (j < 6 && j >= 4 && r_cmp == 0)
-		ParseColor(MapCheck, &line[i], j);
+	if (j < 6 && j >= 4)
+		parse_color(map_check, &line[i], j);
 }
 
-void	ParseColor(t_parse *data, char *line, int j)
+void	parse_color(t_parse *data, char *line, int j)
 {
 	int				i;
-	int				k;
-	unsigned int	id_color;
     int             nb_bits;
-	char			*hex;
+	int				k;
 
 	i = 1;
-	id_color = 0;
-	hex = NULL;
     nb_bits = 24;
+	k = 0;
 	while (line[i] != '\0' && nb_bits > 0)
 	{
-		k = 0;
-		while (line[i] != '\0' && (ft_isspace(line[i]) == 0 || line[i] == ','))
-            i++;
-		while (line[i + k] != '\0' && ft_isdigit(line[i + k]) == 1)
-			k++;
-		if (ft_isalpha(line[i + k]) == 1)
-			data->error = COLOR;
-        hex = ft_substr(&line[i], 0, k);
-        id_color = (ft_Uatoi(hex, data)) << nb_bits;
-        if (data->error == GOOD && j == 4)
-            data->FloorColor |= id_color;
-        else if (data->error == GOOD && j == 5)
-            data->CeilingColor |= id_color;
+		while (line[i] != '\0' && (ft_isspace(line[i]) == 0))
+          i++;
+		k = extract_color(data, &line[i], nb_bits, j);
+		if (k == -1)
+			break ;
         nb_bits -= 8;
 		i += k;
-		hex = xfree(hex);
+		while (line[i] != '\0' && (ft_isspace(line[i]) == 0))
+			i++;
+		if (line[i++] != ',' && nb_bits > 0)
+			break ;
 	}
-	if (j == 4)
-		data->treat_Floor = true;
-	else if (j == 5)
-		data->treat_Ceiling = true;
+	if (nb_bits > 0)
+		data->error = COLOR;
 }
 
-int ParseName(char *map)
+int parse_name(char *map)
 {
     int i;
 
@@ -96,33 +82,33 @@ int ParseName(char *map)
     return (-1);
 }
 
-t_parse *ParseInfo(char *map)
+t_parse *parse_info(char *map)
 {
-    t_parse *MapCheck;
+    t_parse *mapcheck;
     int     fd;
 
     fd = 0;
-    if (ParseName(map)  != 0)
+    if (parse_name(map)  != 0)
         return (NULL);
-    MapCheck = InitCheck();
+    mapcheck = init_check();
     fd = open(map, O_RDONLY);
     if (fd < 0)
         return (NULL);
-    while ((first_parse(fd, MapCheck)) > 0 && MapCheck->error == GOOD)
+    while ((first_parse(fd, mapcheck)) > 0 && mapcheck->error == GOOD)
 		;
     close(fd);
-	check_ParseInfo(MapCheck);
-	if (MapCheck->error == GOOD)
+	check_parse_info(mapcheck);
+	if (mapcheck->error == GOOD)
 		fd = open(map, O_RDONLY);
-	GetTmpMap(MapCheck, fd);
-	flood_fill(MapCheck, MapCheck->map->player_y, MapCheck->map->player_x);
-	if (MapCheck->error != GOOD)
-		error_handler(MapCheck);
-	print_info(MapCheck);
-    return (MapCheck);
+	get_tmp_map(mapcheck, fd);
+	flood_fill(mapcheck, mapcheck->map->player_y, mapcheck->map->player_x);
+	if (mapcheck->error != GOOD)
+		error_handler(mapcheck);
+	print_info(mapcheck);
+    return (mapcheck);
 }
 
-void ParsePath(t_parse* MapCheck, char *line, int j)
+void parse_path(t_parse* map_check, char *line, int j)
 {
     int     i;
 
@@ -132,12 +118,12 @@ void ParsePath(t_parse* MapCheck, char *line, int j)
     i += 2;
     while (ft_isspace(line[++i]) == 0)
         ;
-    if (j == 0 && MapCheck->NO == NULL)
-		MapCheck->NO = GetPath(&line[i]);
-    else if (j == 1 && MapCheck->SO == NULL)
-        MapCheck->SO = GetPath(&line[i]);
-    else if (j == 2 && MapCheck->WE == NULL)
-        MapCheck->WE = GetPath(&line[i]);
-    else if (j == 3 && MapCheck->EA == NULL)
-        MapCheck->EA = GetPath(&line[i]);
+    if (j == 0 && map_check->no == NULL)
+		map_check->no = get_path(&line[i]);
+    else if (j == 1 && map_check->so == NULL)
+        map_check->so = get_path(&line[i]);
+    else if (j == 2 && map_check->we == NULL)
+        map_check->we = get_path(&line[i]);
+    else if (j == 3 && map_check->ea == NULL)
+        map_check->ea = get_path(&line[i]);
 }

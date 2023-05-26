@@ -12,7 +12,7 @@
 
 #include "../inc/Cub3D.h"
 
-int    First_Last_Line(char *line, t_parse *parse)
+int    first_last_line(char *line, t_parse *parse)
 {
     int     i;
 
@@ -35,7 +35,7 @@ int    First_Last_Line(char *line, t_parse *parse)
     return (1);
 }
 
-void    Middle_Line(char *line, t_parse *parse)
+void    middle_line(char *line, t_parse *parse)
 {
     int i;
 
@@ -55,15 +55,15 @@ void    Middle_Line(char *line, t_parse *parse)
     }
 }
 
-void ParseMap(char *line, t_parse *parse)
+void parse_map(char *line, t_parse *parse)
 {
     static int  nb_line;
 
     if ((parse->map->first_line == false || parse->map->last_line == false)
            && parse->error == GOOD)
     {
-        if (First_Last_Line(line, parse) == 1)
-            Middle_Line(line, parse);
+        if (first_last_line(line, parse) == 1)
+            middle_line(line, parse);
         nb_line ++;
     }
 	if (parse->map->last_line == true)

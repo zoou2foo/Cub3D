@@ -26,6 +26,7 @@ SRCS = 	src/main.c\
 		src/cube/init_game.c\
 		src/cube/key_event.c\
 		src/cube/moves.c\
+		src/parsing_utils.c\
 
 SRCS_TEST = test/main.c
 

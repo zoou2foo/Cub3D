@@ -16,33 +16,32 @@ int first_parse(int fd, t_parse *data)
 {
     char    	*line;
     char    	read_ret[2];
-    int     	r_read;
 	static int	nb_line;
+	int			r_read;
 
     line = NULL;
-    r_read = 0;
-    while ((r_read = read(fd, &read_ret, 1)) > 0)
+	r_read = read(fd, &read_ret, 1);
+    while (r_read > 0 && read_ret[0] != '\n')
     {
-        if (read_ret[0] == '\n')
-            break ;
         if (line == NULL)
             line = ft_strdup(read_ret);
         else
             line = ft_strjoin_free(line, read_ret);
+		r_read = read(fd, &read_ret, 1);
     }
 	nb_line++;
 	if ((data->map->first_line == true && data->map->last_line == true)\
 		&& (read_ret[0] == '\n' || line != NULL))
 		data->error = CUB_FILE;
 	if (line != NULL && data->error == GOOD)
-    	ParseLine(line, data);
+    	parse_line(line, data);
     line = xfree(line);
-	if (data->map->first_line == true && data->MapBeg == 0) 
-		data->MapBeg = nb_line;
+	if (data->map->first_line == true && data->mapbeg == 0) 
+		data->mapbeg = nb_line;
     return (r_read);
 }
 
-unsigned int	ft_Uatoi(const char *str, t_parse *data)
+unsigned int	ft_uatoi(const char *str, t_parse *data)
 {
     unsigned int	nb;
     int				i;
@@ -84,12 +83,10 @@ char	*ez_gnl(int fd)
 {
 	char    	*line;
     char    	read_ret[2];
-    int     	r_read;
 
 	line = NULL;
-	r_read = 0;
 	read_ret[1] = '\0';
-	while ((r_read = read(fd, &read_ret, 1)) > 0)
+	while (read(fd, &read_ret, 1) > 0)
 	{
         if (line == NULL)
             line = ft_strdup(read_ret);
