@@ -6,11 +6,13 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 09:13:21 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 09:40:16 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
+
+/*	FIVE FUNCTIONS	*/
 
 int	create_colour(int red, int green, int blue, int trans)
 {
@@ -77,4 +79,44 @@ void	add_texture(t_parse *data)
 	data->xpm->tab_we_tex = create_array_pxl(data->xpm->WE);
 	data->xpm->tab_so_tex = create_array_pxl(data->xpm->SO);
 	data->xpm->tab_no_tex = create_array_pxl(data->xpm->NO);
+}
+
+void	put_texture(t_parse *data, t_tex *text, int *i)
+{
+	double	dist;
+	double	pos;
+	int		tex_y;
+	int		j;
+
+	dist = 1.0 * text->height / data->ray->line_height;
+	pos = ((double) data->ray->draw_start_pt - (double) h / 2 + (double) data->ray->line_height / 2) * dist;
+	if (pos < 0)
+		pos = 0;
+	j = data->ray->draw_start_pt - 1;
+	while (++j < data->ray->draw_end_pt)
+	{
+		tex_y = (int) pos;
+		if (pos > text->height - 1)
+			pos = text->height - 1;
+		pos += dist;
+		mlx_put_pixel(data->image, *i, j, text->tab[tex_y][data->ray->tex_x]);
+	}
+}
+
+void	prepare_teX(t_parse *data, t_tex *text, int *i)
+{
+	double	hit;
+
+	hit = 0;
+	if (data->ray->side == 0)
+		hit = data->ray->pos_Y + data->ray->perpendicular_wallDist * data->ray->ray_dirY;
+	else if (data->ray->side == 1)
+		hit = data->ray->pos_X + data->ray->perpendicular_wallDist * data->ray->ray_dirX;
+	hit -= (int) hit;
+	data->ray->tex_x = (int)(hit * (double) text->width);
+	if (data->ray->side == 0 && data->ray->ray_dirX > 0)
+		data->ray->tex_x = text->width - data->ray->tex_x - 1;
+	if (data->ray->side == 1 && data->ray->ray_dirY < 0)
+		data->ray->tex_x = text->width - data->ray->tex_x - 1;
+	put_texture(data, text, i);
 }

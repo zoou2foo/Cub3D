@@ -144,8 +144,16 @@ void	init_player_pos(t_parse *data);
 void    init_plane(t_parse *data);
 void	init_struct(t_parse *data);
 
+/*      PREP ALGO       */
+void	mesure_delta(t_parse *data);
+void	prep_dda(t_parse *data);
+void	get_perpendicular(t_raycast *ray);
+void	draw_line(t_raycast *ray);
+
 /*      TEXTURE         */
 void	add_texture(t_parse *data);
+void	prepare_teX(t_parse *data, t_tex *text, int *i);
+void	put_texture(t_parse *data, t_tex *text, int *i);
 
 /*		KEY_EVENT		*/
 void	key_event(struct mlx_key_data key, void *data);
