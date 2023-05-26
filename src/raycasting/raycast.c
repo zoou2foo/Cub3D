@@ -42,7 +42,7 @@ void	add_tex_wall(t_parse *data, int index)
 
 	i = -1;
 	while (++i < data->ray->draw_start_pt)
-		mlx_put_pixel(data->image, index, i, data->ceilingcolor);
+		mlx_put_pixel(data->image, index, i, data->ceiling_color);
 	if (data->ray->side == 1)
 	{
 		if (data->ray->ray_dirY < 0)
@@ -62,7 +62,7 @@ void	add_tex_wall(t_parse *data, int index)
 	else
 		i = data->ray->draw_end_pt - 1;
 	while (++i < H - 1)
-		mlx_put_pixel(data->image, index, i, data->floorcolor);
+		mlx_put_pixel(data->image, index, i, data->floor_color);
 }
 
 //"les yeux" du joueur (cameraX)

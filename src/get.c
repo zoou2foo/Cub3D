@@ -12,7 +12,7 @@
 
 #include "../inc/Cub3D.h"
 
-char	*GetPath(char *line)
+char	*get_path(char *line)
 {
 	char	*r_get;
 	char	*path;
@@ -29,7 +29,7 @@ char	*GetPath(char *line)
 	return (path);
 }
 
-void	GetPlayerPoint(t_map *map_data)
+void	get_player_point(t_map *map_data)
 {
 	int	x;
 	int	y;
@@ -67,7 +67,7 @@ static void change_space(char *map)
 	}
 }
 
-void	GetTmpMap(t_parse *data, int fd)
+void	get_tmp_map(t_parse *data, int fd)
 {
 	char	*r_gnl;
 	int		i;
@@ -76,20 +76,21 @@ void	GetTmpMap(t_parse *data, int fd)
 	i = 0;
 	if (!fd)
 		return ;
-	while (data->MapBeg > 1)
+	while (data->mapbeg > 1)
 	{
 		r_gnl = xfree(ez_gnl(fd));
-		data->MapBeg--;
+		data->mapbeg--;
 	}
 	data->map->map = malloc(sizeof(char *) * (data->map->nb_lines + 1));
-	while ((r_gnl = ez_gnl(fd)) != NULL)
+	r_gnl = ez_gnl(fd);
+	while (r_gnl != NULL)
 	{
 		data->map->map[i] = r_gnl;
 		change_space(data->map->map[i]);
 		i++;
+		r_gnl = ez_gnl(fd);
 	}
 	data->map->map[i] = NULL;
-//	print_double_tab(data->map->map);
-	GetPlayerPoint(data->map);
-	printf("Le joueur est à la position Y : %d et X : %d\n", data->map->player_y, data->map->player_x);
+	get_player_point(data->map);
+//	printf("Le joueur est à la position Y : %d et X : %d\n", data->map->player_y, data->map->player_x);
 }

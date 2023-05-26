@@ -12,21 +12,21 @@
 
 #include "../inc/Cub3D.h"
 
-t_parse	*InitCheck(void)
+t_parse	*init_check(void)
 {
 	t_parse *data;
 
 	data = malloc(sizeof(t_parse));
-	data->NO = NULL;
-	data->SO = NULL;
-	data->EA = NULL;
-	data->WE = NULL;
-	data->FloorColor = 0;
-	data->CeilingColor = 0;
-	data->treat_Floor = false;
-	data->treat_Ceiling = false;
+	data->no = NULL;
+	data->so = NULL;
+	data->ea = NULL;
+	data->we = NULL;
+	data->floor_color = 0;
+	data->ceiling_color = 0;
+	data->treat_floor = false;
+	data->treat_ceiling = false;
 	data->error = GOOD;
-	data->MapBeg = 0;
+	data->mapbeg = 0;
 	data->map = malloc(sizeof(t_map));
 	data->map->player = 0;
 	data->map->first_line = false;

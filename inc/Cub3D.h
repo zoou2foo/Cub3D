@@ -97,8 +97,8 @@ typedef struct s_parse {
 	char				*ea;
 	mlx_t				*mlx;
 	mlx_image_t			*image;
-	unsigned int		floorcolor;
-	unsigned int		ceilingcolor;
+	unsigned int		floor_color;
+	unsigned int		ceiling_color;
 	bool				treat_floor;
 	bool				treat_ceiling;
 	int					mapbeg;
@@ -109,18 +109,18 @@ typedef struct s_parse {
 }	t_parse;
 
 /*      PARSING_INFO    */
-void			parseline(char *line, t_parse *MapCheck);
-t_parse			*parseinfo(char *map);
-void			parsepath(t_parse *MapCheck, char *line, int j);
-void			parsecolor(t_parse *data, char *line, int j);
-void			parse_color_util(t_parse *data, char *line, int j);
+void			parse_line(char *line, t_parse *map_check);
+t_parse			*parse_info(char *map);
+void			parse_path(t_parse *map_check, char *line, int j);
+void			parse_color(t_parse *data, char *line, int j);
+int				extract_color(t_parse *data, char *line, int nb_bits , int j);
 
 /*      GET             */
-char			*getpath(char *line);
-void			gettmpmap(t_parse *data, int fd);
+char			*get_path(char *line);
+void			get_tmp_map(t_parse *data, int fd);
 
 /*      INIT_DATA       */
-t_parse			*initcheck(void);
+t_parse			*init_check(void);
 int				first_parse(int fd, t_parse *data);
 void			clear_data(t_parse *data);
 unsigned int	ft_uatoi(const char *str, t_parse *data);
@@ -130,12 +130,12 @@ void			clear_data(t_parse *data);
 
 /*      ERROR           */
 void			error_handler(t_parse *data);
-void			check_parseinfo(t_parse *data);
+void			check_parse_info(t_parse *data);
 
 /*      PARSING_MAP     */
-void			parsemap(char *line, t_parse *parse);
+void			parse_map(char *line, t_parse *parse);
 void			map_space_handler(char *line, int *i, t_parse *parse);
-void			gettmpmap(t_parse *data, int fd);
+void			get_tmp_map(t_parse *data, int fd);
 void			print_double_tab(char **tab);
 char			*ez_gnl(int fd);
 void			flood_fill(t_parse *data, int y, int x);

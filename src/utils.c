@@ -34,14 +34,14 @@ int first_parse(int fd, t_parse *data)
 		&& (read_ret[0] == '\n' || line != NULL))
 		data->error = CUB_FILE;
 	if (line != NULL && data->error == GOOD)
-    	ParseLine(line, data);
+    	parse_line(line, data);
     line = xfree(line);
-	if (data->map->first_line == true && data->MapBeg == 0) 
-		data->MapBeg = nb_line;
+	if (data->map->first_line == true && data->mapbeg == 0) 
+		data->mapbeg = nb_line;
     return (r_read);
 }
 
-unsigned int	ft_Uatoi(const char *str, t_parse *data)
+unsigned int	ft_uatoi(const char *str, t_parse *data)
 {
     unsigned int	nb;
     int				i;
