@@ -28,7 +28,7 @@ void	start_mlx(t_parse *data)
 	}
 	if(!(data->image = mlx_new_image(data->mlx, 64, 64)))
 	{
-		mlx_close_window(data->mlx);//ferme la fenetre
+		mlx_close_window(data->mlx);
 		ft_free_tab((void *)data->map->map);
 		ft_free_null(data);
 		exit(EXIT_FAILURE);

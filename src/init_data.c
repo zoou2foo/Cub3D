@@ -14,7 +14,7 @@
 
 t_parse	*init_check(void)
 {
-	t_parse *data;
+	t_parse	*data;
 
 	data = malloc(sizeof(t_parse));
 	data->no = NULL;

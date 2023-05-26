@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgagnon <marvin@42quebec.com>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/26 16:25:43 by jgagnon           #+#    #+#             */
+/*   Updated: 2023/05/26 16:25:45 by jgagnon          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/Cub3D.h"
 
 int	extract_color(t_parse *data, char *line, int nb_bits, int j)
@@ -25,5 +37,5 @@ int	extract_color(t_parse *data, char *line, int nb_bits, int j)
 		data->treat_floor = true;
 	else if (nb_bits == 8 && j == 5)
 		data->treat_ceiling = true;
-	return(k);
-}	
+	return (k);
+}

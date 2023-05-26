@@ -72,7 +72,6 @@ void	free_ptr_xpm(t_xpm *xpm)
 		ft_free_null(xpm->tab_we_tex);
 }
 
-
 void	free_everything(t_parse *data)
 {
 	free_tex_paths(data);
