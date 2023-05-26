@@ -6,15 +6,16 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 09:44:44 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 10:02:55 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
 
+//hit a wall or not?? (2nd if)
 void	dda_algo(t_parse *data)
 {
-	while (data->ray->hit == 0) //peut-etre mettre variable hit
+	while (data->ray->hit == 0)
 	{
 		if (data->ray->sideX_dist < data->ray->sideY_dist)
 		{
@@ -28,8 +29,7 @@ void	dda_algo(t_parse *data)
 			data->ray->map_y += data->ray->step_y;
 			data->ray->side = 1;
 		}
-		//hit a wall or not??
-		if (data->map->map[data->ray->map_y][data->ray->map_x] == '1')//or should I put > 0?? We know the wall is 1
+		if (data->map->map[data->ray->map_y][data->ray->map_x] == '1')
 			data->ray->hit = 1;
 	}
 }

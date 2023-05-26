@@ -6,11 +6,13 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:42:18 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 09:44:50 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 09:45:57 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
+
+/*		FOUR FUNCTIONS		*/
 
 void	mesure_delta(t_parse *data)
 {
