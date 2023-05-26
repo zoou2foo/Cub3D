@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:34:18 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:19:10 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:48:03 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_player_pos(t_parse *data)
 	}
 }
 
-void init_plane(t_parse *data)
+void	init_plane(t_parse *data)
 {
 	data->ray->plane_X = data->ray->dir_playerY * -0.66;
 	if (data->ray->dir_playerX != 0)

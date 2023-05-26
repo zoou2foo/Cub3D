@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:05:32 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/20 09:34:03 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:54:39 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,31 @@ void	rotate_cam(struct mlx_key_data key, t_parse *data)
 
 void	lets_move(struct mlx_key_data key, t_parse *data)
 {
-	if (key.key == 87)// W; MLX_PRESS && MLX_REPEAT: pour action...
+	if (key.key == 87)
 		go_ahead(data);
-	else if (key.key == 65) // A
-	 	go_left(data);
-	else if (key.key == 83) // S
+	else if (key.key == 65)
+		go_left(data);
+	else if (key.key == 83)
 		go_back(data);
-	else if (key.key == 68) // D
-	 	go_right(data);
+	else if (key.key == 68)
+		go_right(data);
 	go_raycast(data);
 }
 
-void key_event(struct mlx_key_data key, void *data)
+void	key_event(struct mlx_key_data key, void *data)
 {
-	t_parse *tmp;
+	t_parse	*tmp;
 
 	tmp = data;
-	//printf("Key pressed : %d\n", key.key);
 	if (key.key == 263 || key.key == 262)
 		rotate_cam(key, tmp);
 	if (key.key == 87 || key.key == 83 || key.key == 65 || key.key == 68)
 		lets_move(key, tmp);
-	else if (key.key == 256) //ESC
+	else if (key.key == 256)
 	{
 		mlx_close_window(tmp->mlx);
 		mlx_terminate(tmp->mlx);
 		printf("exit cub3d\n");
 		exit (1);
 	}
-//	tmp->image->pixels = ft_memset((void*)tmp->image->pixels, 0, ((h * w) * sizeof(int)));
 }

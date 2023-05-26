@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:42:18 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:19:45 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:48:29 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	mesure_delta(t_parse *data)
 
 void	prep_dda(t_parse *data)
 {
-	if (data->ray->ray_dirX < 0) //vers gauche
+	if (data->ray->ray_dirX < 0)
 	{
 		data->ray->step_x = -1;
 		data->ray->sideX_dist = (data->ray->pos_X - data->ray->map_x)
@@ -36,11 +36,11 @@ void	prep_dda(t_parse *data)
 	}
 	else
 	{
-		data->ray->step_x = 1; //vers droite
+		data->ray->step_x = 1;
 		data->ray->sideX_dist = (data->ray->map_x + 1.0 - data->ray->pos_X)
 			* data->ray->delta_X;
 	}
-	if (data->ray->ray_dirY < 0) //en arriere
+	if (data->ray->ray_dirY < 0)
 	{
 		data->ray->step_y = -1;
 		data->ray->sideY_dist = (data->ray->pos_Y - data->ray->map_y)
@@ -48,7 +48,7 @@ void	prep_dda(t_parse *data)
 	}
 	else
 	{
-		data->ray->step_y = 1; //en avant
+		data->ray->step_y = 1;
 		data->ray->sideY_dist = (data->ray->map_y + 1.0 - data->ray->pos_Y)
 			* data->ray->delta_Y;
 	}

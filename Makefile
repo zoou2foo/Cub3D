@@ -23,7 +23,6 @@ SRCS = 	src/main.c\
 		src/raycasting/texture_utils.c\
 		src/raycasting/init_raycast.c\
 		src/raycasting/prep_algo.c\
-		src/raycasting/parsing_utils.c\
 		src/cube/init_game.c\
 		src/cube/key_event.c\
 		src/cube/moves.c\
@@ -34,7 +33,7 @@ OBJS = $(SRCS:.c=.o)
 
 CC = gcc -g
 CFLAGS = -Wall -Werror -Wextra
-MLX = MLX42/libmlx42.a 
+MLX = MLX42/libmlx42.a
 MLX_FLAG = -lglfw -L /Users/$(USER)/.brew/opt/glfw/lib
 NORM = norminette
 RM = rm -rf
