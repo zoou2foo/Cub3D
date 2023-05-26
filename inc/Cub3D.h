@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:47:53 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 10:02:11 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:28:33 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ void			print_info(t_parse *data);
 
 /*      INIT_GAME       */
 void			start_mlx(t_parse *data);
+void			put_ceiling(t_parse *data, int index);
+void			put_floor(t_parse *data, int index);
 
 /*      RAYCAST         */
 void			start_raycast(t_parse *data);
@@ -159,8 +161,9 @@ void			draw_line(t_raycast *ray);
 
 /*      TEXTURE         */
 void			add_texture(t_parse *data);
-void			prepare_teX(t_parse *data, t_tex *text, int *i);
+void			prepare_tex(t_parse *data, t_tex *text, int *i);
 void			put_texture(t_parse *data, t_tex *text, int *i);
+void			transform_xpm(t_parse *data);
 
 /*		KEY_EVENT		*/
 void			key_event(struct mlx_key_data key, void *data);

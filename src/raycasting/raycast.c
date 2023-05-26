@@ -6,11 +6,13 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 10:02:55 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:29:15 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
+
+/*	FOUR FUNCTIONS	*/
 
 //hit a wall or not?? (2nd if)
 void	dda_algo(t_parse *data)
@@ -38,53 +40,49 @@ void	add_tex_wall(t_parse *data, int index)
 {
 	long int	i;
 
-	i = 0;
-	while (i < data->ray->draw_start_pt) //ceiling
-	{
+	i = -1;
+	while (++i < data->ray->draw_start_pt)
 		mlx_put_pixel(data->image, index, i, data->CeilingColor);
-		i++;
-	}
 	if (data->ray->side == 1)
 	{
-		if (data->ray->ray_dirY < 0) //south
-			prepare_teX(data, data->xpm->tab_so_tex, &index);
-		else //north
-			prepare_teX(data, data->xpm->tab_no_tex, &index);
+		if (data->ray->ray_dirY < 0)
+			prepare_tex(data, data->xpm->tab_so_tex, &index);
+		else
+			prepare_tex(data, data->xpm->tab_no_tex, &index);
 	}
 	else if (data->ray->side == 0)
 	{
-		if(data->ray->ray_dirX > 0) //east
-			prepare_teX(data, data->xpm->tab_ea_tex, &index);
-		else //west
-			prepare_teX(data, data->xpm->tab_we_tex, &index);
+		if (data->ray->ray_dirX > 0)
+			prepare_tex(data, data->xpm->tab_ea_tex, &index);
+		else
+			prepare_tex(data, data->xpm->tab_we_tex, &index);
 	}
 	if (data->ray->draw_start_pt > data->ray->draw_end_pt)
 		i = h;
 	else
-		i = data->ray->draw_end_pt;
-	while (i < h - 1) //floor
-	{
+		i = data->ray->draw_end_pt - 1;
+	while (++i < h - 1)
 		mlx_put_pixel(data->image, index, i, data->FloorColor);
-		i++;
-	}
 }
 
-
+//"les yeux" du joueur (cameraX)
 void	go_raycast(t_parse *data)
 {
 	int		index;
-	double	cameraX; //"les yeux" du joueur
+	double	camera_x;
 
 	index = 0;
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
-	data->map->player_x = data->ray->pos_X; //update la pos du joueur dans la map
+	data->map->player_x = data->ray->pos_X;
 	data->map->player_y = data->ray->pos_Y;
 	while (index < w)
 	{
 		init_struct(data);
-		cameraX = 2 * index / (double)w - 1;
-		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X * cameraX;
-		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y * cameraX;
+		camera_x = 2 * index / (double)w - 1;
+		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X
+			* camera_x;
+		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y
+			* camera_x;
 		mesure_delta(data);
 		prep_dda(data);
 		dda_algo(data);
@@ -97,14 +95,15 @@ void	go_raycast(t_parse *data)
 
 void	start_raycast(t_parse *data)
 {
-	if (!(data->mlx = mlx_init(w, h, "cub3d", true)))
+	data->mlx = mlx_init(w, h, "cub3d", true);
+	if (!data->mlx)
 	{
-		mlx_strerror(mlx_errno); //fonction a utiliser pour gerer les erreurs
-		exit(EXIT_FAILURE); //do we need to change the error message? to make sure stuff is free?
+		mlx_strerror(mlx_errno);
+		exit(EXIT_FAILURE);
 	}
 	setup_struct(data);
 	go_raycast(data);
-	mlx_key_hook(data->mlx, key_event, (void*)data);
+	mlx_key_hook(data->mlx, key_event, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->image);
 	mlx_terminate(data->mlx);

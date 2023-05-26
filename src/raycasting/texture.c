@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 09:40:16 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 11:27:30 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	create_colour(int red, int green, int blue, int trans)
 //to put in static or not
 t_tex	*create_array_pxl(xpm_t *wall)
 {
-	t_tex		*texture;
-	int	x;
-	int	y;
-	int			count;
+	t_tex	*texture;
+	int		x;
+	int		y;
+	int		count;
 
 	y = -1;
 	count = 0;
 	texture = ft_calloc(1, sizeof(t_tex));
-	texture->tab = ft_calloc(sizeof(int*), wall->texture.height + 1);
+	texture->tab = ft_calloc(sizeof(int *), wall->texture.height + 1);
 	while (++y < (int)wall->texture.height)
 	{
 		x = -1;
@@ -51,30 +51,7 @@ t_tex	*create_array_pxl(xpm_t *wall)
 void	add_texture(t_parse *data)
 {
 	data->xpm = malloc(sizeof(t_xpm));
-	data->xpm->EA = mlx_load_xpm42(data->EA);
-	if (!data->xpm->EA)
-	{
-		printf("L'un des chemin des textures est invalide\n");
-		exit(1);//need to better deal error and free stuff. Need it or not??
-	}
-	data->xpm->WE = mlx_load_xpm42(data->WE);
-	if (!data->xpm->WE)
-	{
-		printf("L'un des chemin des textures est invalide\n");
-		exit(1);
-	}
-	data->xpm->NO = mlx_load_xpm42(data->NO);
-	if (!data->xpm->NO)
-	{
-		printf("L'un des chemin des textures est invalide\n");
-		exit(1);
-	}
-	data->xpm->SO = mlx_load_xpm42(data->SO);
-	if (!data->xpm->SO)
-	{
-		printf("L'un des chemin des textures est invalide\n");
-		exit(1);
-	}
+	transform_xpm(data);
 	data->xpm->tab_ea_tex = create_array_pxl(data->xpm->EA);
 	data->xpm->tab_we_tex = create_array_pxl(data->xpm->WE);
 	data->xpm->tab_so_tex = create_array_pxl(data->xpm->SO);
@@ -89,7 +66,8 @@ void	put_texture(t_parse *data, t_tex *text, int *i)
 	int		j;
 
 	dist = 1.0 * text->height / data->ray->line_height;
-	pos = ((double) data->ray->draw_start_pt - (double) h / 2 + (double) data->ray->line_height / 2) * dist;
+	pos = ((double) data->ray->draw_start_pt - (double) h / 2
+			+ (double) data->ray->line_height / 2) * dist;
 	if (pos < 0)
 		pos = 0;
 	j = data->ray->draw_start_pt - 1;
@@ -103,15 +81,17 @@ void	put_texture(t_parse *data, t_tex *text, int *i)
 	}
 }
 
-void	prepare_teX(t_parse *data, t_tex *text, int *i)
+void	prepare_tex(t_parse *data, t_tex *text, int *i)
 {
 	double	hit;
 
 	hit = 0;
 	if (data->ray->side == 0)
-		hit = data->ray->pos_Y + data->ray->perpendicular_wallDist * data->ray->ray_dirY;
+		hit = data->ray->pos_Y + data->ray->perpendicular_wallDist
+			* data->ray->ray_dirY;
 	else if (data->ray->side == 1)
-		hit = data->ray->pos_X + data->ray->perpendicular_wallDist * data->ray->ray_dirX;
+		hit = data->ray->pos_X + data->ray->perpendicular_wallDist
+			* data->ray->ray_dirX;
 	hit -= (int) hit;
 	data->ray->tex_x = (int)(hit * (double) text->width);
 	if (data->ray->side == 0 && data->ray->ray_dirX > 0)
