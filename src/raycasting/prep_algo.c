@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:42:18 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 11:02:52 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:19:45 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	get_perpendicular(t_raycast *ray)
 //calculate lowest and highest pixel to fill in current "stripe" (2nd line)
 void	draw_line(t_raycast *ray)
 {
-	ray->line_height = (int)(h / ray->perpendicular_wallDist);
-	ray->draw_start_pt = -ray->line_height / 2 + h / 2;
+	ray->line_height = (int)(H / ray->perpendicular_wallDist);
+	ray->draw_start_pt = -ray->line_height / 2 + H / 2;
 	if (ray->draw_start_pt < 0)
 		ray->draw_start_pt = 0;
-	ray->draw_end_pt = ray->line_height / 2 + h / 2;
-	if (ray->draw_end_pt >= h)
-		ray->draw_end_pt = h - 1;
+	ray->draw_end_pt = ray->line_height / 2 + H / 2;
+	if (ray->draw_end_pt >= H)
+		ray->draw_end_pt = H - 1;
 }

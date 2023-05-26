@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:47:53 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 11:28:33 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:13:50 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include "Libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
-# define w 1920
-# define h 1080
-# define texWidth 64
-# define texHeight 24
+# define W 1920
+# define H 1080
+# define TEXWIDTH 64
+# define TEXHEIGHT 24
 
 static const char *g_side_tab[7] = {"NO ", "SO ", "WE ", "EA ", "F ", "C ",
 	NULL};
@@ -91,17 +91,17 @@ typedef struct s_raycast {
 }	t_raycast;
 
 typedef struct s_parse {
-	char				*NO;
-	char				*SO;
-	char				*WE;
-	char				*EA;
+	char				*no;
+	char				*so;
+	char				*we;
+	char				*ea;
 	mlx_t				*mlx;
 	mlx_image_t			*image;
-	unsigned int		FloorColor;
-	unsigned int		CeilingColor;
-	bool				treat_Floor;
-	bool				treat_Ceiling;
-	int					MapBeg;
+	unsigned int		floorcolor;
+	unsigned int		ceilingcolor;
+	bool				treat_floor;
+	bool				treat_ceiling;
+	int					mapbeg;
 	t_map				*map;
 	t_raycast			*ray;
 	t_xpm				*xpm;
@@ -109,32 +109,33 @@ typedef struct s_parse {
 }	t_parse;
 
 /*      PARSING_INFO    */
-void			ParseLine(char *line, t_parse *MapCheck);
-t_parse			*ParseInfo(char *map);
-void			ParsePath(t_parse *MapCheck, char *line, int j);
-void			ParseColor(t_parse *data, char *line, int j);
+void			parseline(char *line, t_parse *MapCheck);
+t_parse			*parseinfo(char *map);
+void			parsepath(t_parse *MapCheck, char *line, int j);
+void			parsecolor(t_parse *data, char *line, int j);
+void			parse_color_util(t_parse *data, char *line, int j);
 
 /*      GET             */
-char			*GetPath(char *line);
-void			GetTmpMap(t_parse *data, int fd);
+char			*getpath(char *line);
+void			gettmpmap(t_parse *data, int fd);
 
 /*      INIT_DATA       */
-t_parse			*InitCheck(void);
+t_parse			*initcheck(void);
 int				first_parse(int fd, t_parse *data);
 void			clear_data(t_parse *data);
-unsigned int	ft_Uatoi(const char *str, t_parse *data);
+unsigned int	ft_uatoi(const char *str, t_parse *data);
 
 /*      CLEAR           */
 void			clear_data(t_parse *data);
 
 /*      ERROR           */
 void			error_handler(t_parse *data);
-void			check_ParseInfo(t_parse *data);
+void			check_parseinfo(t_parse *data);
 
 /*      PARSING_MAP     */
-void			ParseMap(char *line, t_parse *parse);
+void			parsemap(char *line, t_parse *parse);
 void			map_space_handler(char *line, int *i, t_parse *parse);
-void			GetTmpMap(t_parse *data, int fd);
+void			gettmpmap(t_parse *data, int fd);
 void			print_double_tab(char **tab);
 char			*ez_gnl(int fd);
 void			flood_fill(t_parse *data, int y, int x);

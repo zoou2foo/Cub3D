@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:34:18 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 11:01:11 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:19:10 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void init_plane(t_parse *data)
 void	init_struct(t_parse *data)
 {
 	data->ray->hit = 0;
-	data->ray->map_x = (int)data->ray->pos_X;//verifie si doit etre int ou double...
+	data->ray->map_x = (int)data->ray->pos_X;
 	data->ray->map_y = (int)data->ray->pos_Y;
 }
 
 void	setup_struct(t_parse *data)
 {
 	data->ray = malloc(sizeof(t_raycast));
-	data->image = mlx_new_image(data->mlx, w, h);
+	data->image = mlx_new_image(data->mlx, W, H);
 	data->ray->pos_X = data->map->player_x + 0.5;
 	data->ray->pos_Y = data->map->player_y + 0.5;
 	data->ray->map_x = (int)data->ray->pos_X;

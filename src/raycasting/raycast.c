@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 11:29:15 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:20:55 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_tex_wall(t_parse *data, int index)
 
 	i = -1;
 	while (++i < data->ray->draw_start_pt)
-		mlx_put_pixel(data->image, index, i, data->CeilingColor);
+		mlx_put_pixel(data->image, index, i, data->ceilingcolor);
 	if (data->ray->side == 1)
 	{
 		if (data->ray->ray_dirY < 0)
@@ -58,11 +58,11 @@ void	add_tex_wall(t_parse *data, int index)
 			prepare_tex(data, data->xpm->tab_we_tex, &index);
 	}
 	if (data->ray->draw_start_pt > data->ray->draw_end_pt)
-		i = h;
+		i = H;
 	else
 		i = data->ray->draw_end_pt - 1;
-	while (++i < h - 1)
-		mlx_put_pixel(data->image, index, i, data->FloorColor);
+	while (++i < H - 1)
+		mlx_put_pixel(data->image, index, i, data->floorcolor);
 }
 
 //"les yeux" du joueur (cameraX)
@@ -75,10 +75,10 @@ void	go_raycast(t_parse *data)
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 	data->map->player_x = data->ray->pos_X;
 	data->map->player_y = data->ray->pos_Y;
-	while (index < w)
+	while (index < W)
 	{
 		init_struct(data);
-		camera_x = 2 * index / (double)w - 1;
+		camera_x = 2 * index / (double)W - 1;
 		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X
 			* camera_x;
 		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y
@@ -95,7 +95,7 @@ void	go_raycast(t_parse *data)
 
 void	start_raycast(t_parse *data)
 {
-	data->mlx = mlx_init(w, h, "cub3d", true);
+	data->mlx = mlx_init(W, H, "cub3d", true);
 	if (!data->mlx)
 	{
 		mlx_strerror(mlx_errno);

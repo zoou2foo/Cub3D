@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 11:27:30 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:21:23 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	put_texture(t_parse *data, t_tex *text, int *i)
 	int		j;
 
 	dist = 1.0 * text->height / data->ray->line_height;
-	pos = ((double) data->ray->draw_start_pt - (double) h / 2
+	pos = ((double) data->ray->draw_start_pt - (double) H / 2
 			+ (double) data->ray->line_height / 2) * dist;
 	if (pos < 0)
 		pos = 0;

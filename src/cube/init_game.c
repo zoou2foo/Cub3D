@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:22:58 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/20 09:34:25 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:24:23 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 void	start_mlx(t_parse *data)
 {
-	int					y;
-	int					x;
+	int	y;
+	int	x;
 
 	y = 0;
 	x = 0;
 	if (!(data->mlx = mlx_init(1920, 1080, "cub3d", true)))
 	{
-		mlx_strerror(mlx_errno); //fonction a utiliser pour gerer les erreurs
-		ft_free_tab((void*)data->map->map);
+		mlx_strerror(mlx_errno);
+		ft_free_tab((void *)data->map->map);
 		ft_free_null(data);
 		exit(EXIT_FAILURE);
 	}
-	if(!(data->image = mlx_new_image(data->mlx, 64, 64))) //size of map??
+	if(!(data->image = mlx_new_image(data->mlx, 64, 64)))
 	{
 		mlx_close_window(data->mlx);//ferme la fenetre
-		ft_free_tab((void*)data->map->map);
+		ft_free_tab((void *)data->map->map);
 		ft_free_null(data);
 		exit(EXIT_FAILURE);
 	}
-	while (y <= 63) //à modifier ⬇️
+	while (y <= 63)
 	{
 		while (x <= 63)
 		{

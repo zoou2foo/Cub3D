@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:08:06 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/22 13:55:53 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:17:05 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	ft_free_tab(void **tab)
 
 void	free_tex_paths(t_parse *data)
 {
-	if (data->EA)
-		ft_free_null(data->EA);
-	if (data->WE)
-		ft_free_null(data->WE);
-	if (data->NO)
-		ft_free_null(data->NO);
-	if (data->SO)
-		ft_free_null(data->SO);
+	if (data->ea)
+		ft_free_null(data->ea);
+	if (data->we)
+		ft_free_null(data->we);
+	if (data->no)
+		ft_free_null(data->no);
+	if (data->so)
+		ft_free_null(data->so);
 }
 
 void	free_ptr_xpm(t_xpm *xpm)
@@ -75,14 +75,11 @@ void	free_ptr_xpm(t_xpm *xpm)
 
 void	free_everything(t_parse *data)
 {
-	free_tex_paths(data); //free ptr in parse to textures path
-	ft_free_tab((void*)data->map->map); //free **tab (the map)
-	//ft_free_tab((void*)data->tex->tab); //free **tab (int tab for tex)
+	free_tex_paths(data);
+	ft_free_tab((void *)data->map->map);
 	free_ptr_xpm(data->xpm);
 	ft_free_null(data->map);
-	//ft_free_null(data->tex);
 	ft_free_null(data->xpm);
 	ft_free_null(data->ray);
 	free(data);
-
 }

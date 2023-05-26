@@ -6,13 +6,13 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:26:19 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 09:59:43 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/26 14:35:55 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
 
-t_parse *InitCheck(void)
+t_parse	*InitCheck(void)
 {
 	t_parse *data;
 
