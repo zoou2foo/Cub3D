@@ -20,6 +20,7 @@ SRCS = 	src/main.c\
 		src/free_stuff.c\
 		src/raycasting/raycast.c\
 		src/raycasting/texture.c\
+		src/raycasting/init_raycast.c\
 		src/cube/init_game.c\
 		src/cube/key_event.c\
 		src/cube/moves.c\
@@ -54,7 +55,7 @@ mlx:
 		@echo "____Les fichiers tests ont été créés____"
 
 leaks: all
-	valgrind --show-leak-kinds=all --leak-check=full ./cub3d map.cub
+	leaks --atExit -- ./cub3D wrong_map.cub
 clean:
 		${RM} ${NAME} ${NAME}.dSYM
 		${RM} mlx

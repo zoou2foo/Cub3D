@@ -140,6 +140,9 @@ void    start_mlx(t_parse *data);
 /*      RAYCAST         */
 void	start_raycast(t_parse *data);
 void	go_raycast(t_parse *data);
+void	init_player_pos(t_parse *data);
+void    init_plane(t_parse *data);
+void	init_struct(t_parse *data);
 
 /*      TEXTURE         */
 void	add_texture(t_parse *data);
