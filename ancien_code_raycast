@@ -86,7 +86,6 @@ void	draw_line(t_parse *data)
 {
 	//to calculate height of line to draw on screen
 	data->ray->line_height = (int)(h / data->ray->perpendicular_wallDist);
-
 	//calculate lowest and highest pixel to fill in current "stripe"
 	data->ray->draw_start_pt = -data->ray->line_height / 2 + h / 2; //BEDMAS
 	if (data->ray->draw_start_pt < 0)
@@ -161,5 +160,25 @@ void	go_raycast(t_parse *data)
 		add_some_colours(data, index); //good
 		//add_texture(data); //add it here or not??
 		index++;
+	}
+}
+
+/*		texture some old code		*/
+void	put_tex(t_tex *tex, mlx_image_t *image, int index, int count)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < tex->height)
+	{
+		while (x < tex->width)
+		{
+			mlx_put_pixel(image, index, count, tex->tab[y][x]);
+			x++;
+		}
+		x = 0;
+		y++;
 	}
 }

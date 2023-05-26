@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:08:06 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/20 16:19:08 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/22 13:55:53 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	free_everything(t_parse *data)
 {
 	free_tex_paths(data); //free ptr in parse to textures path
 	ft_free_tab((void*)data->map->map); //free **tab (the map)
-	ft_free_tab((void*)data->tex->tab); //free **tab (int tab for tex)
+	//ft_free_tab((void*)data->tex->tab); //free **tab (int tab for tex)
 	free_ptr_xpm(data->xpm);
 	ft_free_null(data->map);
-	ft_free_null(data->tex);
+	//ft_free_null(data->tex);
 	ft_free_null(data->xpm);
 	ft_free_null(data->ray);
 	free(data);
