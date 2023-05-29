@@ -21,7 +21,8 @@ int	main(int argc, char **argv)
 		printf("Veuillez fournir un fichier au format .cub");
 		return (-1);
 	}
-	if ((data = parse_info(argv[1])) == NULL)
+	data = parse_info(argv[1]);
+	if (data == NULL)
 	{
 		printf("La map n'est pas valide ou n'a pas toutes les bonnes info");
 		return (-1);

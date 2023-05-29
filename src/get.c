@@ -24,8 +24,6 @@ char	*get_path(char *line)
 	while (ft_isspace(line[i]) != 0 && line[i] != '\0')
 		i++;
 	path = ft_substr(line, 0, i);
-//	r_get = ft_strjoin(dir, path);
-//	path = xfree(path);
 	return (path);
 }
 
@@ -53,8 +51,7 @@ void	get_player_point(t_map *map_data)
 	}
 }
 
-
-static void change_space(char *map)
+static void	change_space(char *map)
 {
 	int	i;
 
@@ -92,5 +89,4 @@ void	get_tmp_map(t_parse *data, int fd)
 	}
 	data->map->map[i] = NULL;
 	get_player_point(data->map);
-//	printf("Le joueur est à la position Y : %d et X : %d\n", data->map->player_y, data->map->player_x);
 }

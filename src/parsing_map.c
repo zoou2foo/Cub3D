@@ -12,62 +12,62 @@
 
 #include "../inc/Cub3D.h"
 
-int    first_last_line(char *line, t_parse *parse)
+int	first_last_line(char *line, t_parse *parse)
 {
-    int     i;
+	int	i;
 
-    i = -1;
+	i = -1;
 	while (line[++i] == 32)
 		;
-    if (line[i] == '1' || line[i] == '0')
-    {
-        while (line[++i] == '1' || line[i] == 32)
-            ;
-        if ((line[i] == '0' && line[i + 1] == '\0') || line[i] == '\0')
-        {
-            if (parse->map->first_line == false)
-                parse->map->first_line = true;
-            else if (parse->map->last_line == false)
-                parse->map->last_line = true;
-            return (0);
-        }
-    }
-    return (1);
+	if (line[i] == '1' || line[i] == '0')
+	{
+		while (line[++i] == '1' || line[i] == 32)
+			;
+		if ((line[i] == '0' && line[i + 1] == '\0') || line[i] == '\0')
+		{
+			if (parse->map->first_line == false)
+				parse->map->first_line = true;
+			else if (parse->map->last_line == false)
+				parse->map->last_line = true;
+			return (0);
+		}
+	}
+	return (1);
 }
 
-void    middle_line(char *line, t_parse *parse)
+void	middle_line(char *line, t_parse *parse)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (line[++i] == '1' || line[i] == 32)
-        ;
-    while (line[i] != '\0')
-    {
-        if (ft_charsetcmp(line[i], "NESW") == 0 && parse->map->player == 0)
-            parse->map->player = line[i];
-        else if (ft_charsetcmp(line[i], "NESW") == 0 && parse->map->player != 0)
-        {
-            parse->map->player = 'Z';
-            return ;
-        }
+	i = -1;
+	while (line[++i] == '1' || line[i] == 32)
+		;
+	while (line[i] != '\0')
+	{
+		if (ft_charsetcmp(line[i], "NESW") == 0 && parse->map->player == 0)
+			parse->map->player = line[i];
+		else if (ft_charsetcmp(line[i], "NESW") == 0 && parse->map->player != 0)
+		{
+			parse->map->player = 'Z';
+			return ;
+		}
 		map_space_handler(line, &i, parse);
-    }
+	}
 }
 
-void parse_map(char *line, t_parse *parse)
+void	parse_map(char *line, t_parse *parse)
 {
-    static int  nb_line;
+	static int	nb_line;
 
-    if ((parse->map->first_line == false || parse->map->last_line == false)
-           && parse->error == GOOD)
-    {
-        if (first_last_line(line, parse) == 1)
-            middle_line(line, parse);
-        nb_line ++;
-    }
+	if ((parse->map->first_line == false || parse->map->last_line == false)
+		&& parse->error == GOOD)
+	{
+		if (first_last_line(line, parse) == 1)
+			middle_line(line, parse);
+		nb_line ++;
+	}
 	if (parse->map->last_line == true)
-		parse->map->nb_lines = nb_line;
+	parse->map->nb_lines = nb_line;
 }
 
 void	map_space_handler(char *line, int *i, t_parse *parse)
@@ -77,10 +77,10 @@ void	map_space_handler(char *line, int *i, t_parse *parse)
 	k = *i;
 	if (line[k] == '1' && line[k + 1] == 32)
 	{
-			while (line[++k] == 32)
-				;
-			if (line[k] == '1' || line[k] == '\0')
-				*i = k;
+		while (line[++k] == 32)
+			;
+		if (line[k] == '1' || line[k] == '\0')
+			*i = k;
 	}
 	else if (line[k] == '0' && line[k + 1] == 32)
 	{
