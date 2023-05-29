@@ -15,15 +15,15 @@
 void	error_handler(t_parse *data)
 {
 	printf("Error\n");
-	if (data->error == PATH)
+	if (data->error == path)
 		printf("L'un des chemin des textures est invalide\n");
-	else if (data->error == COLOR)
+	else if (data->error == color)
 		printf("L'une des couleur fournise a une erreur ou est manquante\n");
-	else if (data->error == MAP)
+	else if (data->error == map)
 		printf("La carte fournise a une erreur de format\n");
-	else if (data->error == CUB_FILE)
+	else if (data->error == cub_file)
 		printf("Le fichier a une erreur de format ou de code 18\n");
-	else if (data->error == PLAYER)
+	else if (data->error == player)
 		printf("La position du joueur est soit manquante ou multiple\n");
 	clear_data(data);
 	data = xfree(data);
@@ -32,18 +32,18 @@ void	error_handler(t_parse *data)
 
 void	check_parse_info(t_parse *data)
 {
-	if (data->error != GOOD)
+	if (data->error != good)
 		;
 	else if (data->no == NULL || data->so == NULL || data->we == NULL
 		|| data->ea == NULL)
-		data->error = PATH;
+		data->error = path;
 	else if (data->map->first_line == false || data->map->last_line == false)
-		data->error = MAP;
+		data->error = map;
 	else if (data->treat_ceiling == false || data->treat_floor == false)
-		data->error = COLOR;
+		data->error = color;
 	else if (data->map->player == 0 || data->map->player == 'Z')
-		data->error = PLAYER;
-	if (data->error != GOOD)
+		data->error = player;
+	if (data->error != good)
 		error_handler(data);
 	data->ceiling_color |= 0x000000ff;
 	data->floor_color |= 0x000000ff;

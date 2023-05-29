@@ -60,7 +60,7 @@ void	parse_map(char *line, t_parse *parse)
 	static int	nb_line;
 
 	if ((parse->map->first_line == false || parse->map->last_line == false)
-		&& parse->error == GOOD)
+		&& parse->error == good)
 	{
 		if (first_last_line(line, parse) == 1)
 			middle_line(line, parse);
@@ -87,7 +87,7 @@ void	map_space_handler(char *line, int *i, t_parse *parse)
 		while (line[++k] == 32)
 			;
 		if (line[k] == '\0')
-			parse->error = MAP;
+			parse->error = map;
 		*i = k;
 		return ;
 	}
