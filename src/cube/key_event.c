@@ -6,37 +6,50 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:05:32 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:54:39 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 08:22:06 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/Cub3D.h"
 
-void	rotate_cam(struct mlx_key_data key, t_parse *data)
+void	do_rotate(struct mlx_key_data key, t_parse *data, double olddirx,
+double oldplanex)
 {
-	double	oldDirX;
-	double	oldPlaneX;
 	double	speed;
 
-	oldDirX = data->ray->dir_playerX;
-	oldPlaneX = data->ray->plane_X;
 	speed = 0.06;
 	if (key.key == 263)
 	{
-		//printf("ON TOURNE À GAUCH'!\n");
-		data->ray->dir_playerX = data->ray->dir_playerX * cos(-speed) - data->ray->dir_playerY * sin(-speed);
-		data->ray->dir_playerY = oldDirX * sin(-speed) + data->ray->dir_playerY * cos(-speed);
-		data->ray->plane_X = data->ray->plane_X * cos(-speed) - data->ray->plane_Y * sin(-speed);
-		data->ray->plane_Y = oldPlaneX * sin(-speed) + data->ray->plane_Y * cos(-speed);
+		data->ray->dir_playerX = data->ray->dir_playerX * cos(-speed) \
+		- data->ray->dir_playerY * sin(-speed);
+		data->ray->dir_playerY = olddirx * sin(-speed) \
+		+ data->ray->dir_playerY * cos(-speed);
+		data->ray->plane_X = data->ray->plane_X * cos(-speed) \
+		- data->ray->plane_Y * sin(-speed);
+		data->ray->plane_Y = oldplanex * sin(-speed) + data->ray->plane_Y \
+		* cos(-speed);
 	}
 	else if (key.key == 262)
 	{
-		//printf("ON TOURNE À DROUAITE!\n");
-		data->ray->dir_playerX = data->ray->dir_playerX * cos(speed) - data->ray->dir_playerY * sin(speed);
-		data->ray->dir_playerY = oldDirX * sin(speed) + data->ray->dir_playerY * cos(speed);
-		data->ray->plane_X = data->ray->plane_X * cos(speed) - data->ray->plane_Y * sin(speed);
-		data->ray->plane_Y = oldPlaneX * sin(speed) + data->ray->plane_Y * cos(speed);
+		data->ray->dir_playerX = data->ray->dir_playerX * cos(speed) \
+		- data->ray->dir_playerY * sin(speed);
+		data->ray->dir_playerY = olddirx * sin(speed) + data->ray->dir_playerY \
+		* cos(speed);
+		data->ray->plane_X = data->ray->plane_X * cos(speed) \
+		- data->ray->plane_Y * sin(speed);
+		data->ray->plane_Y = oldplanex * sin(speed) + data->ray->plane_Y \
+		* cos(speed);
 	}
+}
+
+void	rotate_cam(struct mlx_key_data key, t_parse *data)
+{
+	double	olddirx;
+	double	oldplanex;
+
+	olddirx = data->ray->dir_playerX;
+	oldplanex = data->ray->plane_X;
+	do_rotate(key, data, olddirx, oldplanex);
 	go_raycast(data);
 }
 
