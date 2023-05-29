@@ -63,7 +63,7 @@ void	parse_color(t_parse *data, char *line, int j)
 			break ;
 	}
 	if (nb_bits > 0)
-		data->error = COLOR;
+		data->error = color;
 }
 
 int	parse_name(char *map)
@@ -94,15 +94,15 @@ t_parse	*parse_info(char *map)
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	while ((first_parse(fd, mapcheck)) > 0 && mapcheck->error == GOOD)
+	while ((first_parse(fd, mapcheck)) > 0 && mapcheck->error == good)
 		;
 	close(fd);
 	check_parse_info(mapcheck);
-	if (mapcheck->error == GOOD)
+	if (mapcheck->error == good)
 		fd = open(map, O_RDONLY);
 	get_tmp_map(mapcheck, fd);
 	flood_fill(mapcheck, mapcheck->map->player_y, mapcheck->map->player_x);
-	if (mapcheck->error != GOOD)
+	if (mapcheck->error != good)
 		error_handler(mapcheck);
 	print_info(mapcheck);
 	return (mapcheck);

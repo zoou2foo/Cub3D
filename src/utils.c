@@ -32,8 +32,8 @@ int	first_parse(int fd, t_parse *data)
 	nb_line++;
 	if ((data->map->first_line == true && data->map->last_line == true) \
 		&& (read_ret[0] == '\n' || line != NULL))
-		data->error = CUB_FILE;
-	if (line != NULL && data->error == GOOD)
+		data->error = cub_file;
+	if (line != NULL && data->error == good)
 		parse_line(line, data);
 	line = xfree(line);
 	if (data->map->first_line == true && data->mapbeg == 0)
@@ -55,14 +55,14 @@ unsigned int	ft_uatoi(const char *str, t_parse *data)
 		if (str[i] == '-' || str[i] == '+' || \
 			ft_isalpha(str[i]) == 1)
 		{
-			data->error = COLOR;
+			data->error = color;
 			return (0);
 		}
 		nb = (nb * 10) + (str[i] - 0x30);
 		i++;
 	}
 	if (nb > 255)
-		data->error = COLOR;
+		data->error = color;
 	return (nb);
 }
 
@@ -109,7 +109,7 @@ void	flood_fill(t_parse *data, int y, int x)
 			|| x + 1 >= ft_strlen(data->map->map[y]))
 		&& ft_strchr("0", data->map->map[y][x]))
 	{
-		data->error = MAP;
+		data->error = map;
 		error_handler(data);
 	}
 	if (data->map->map[y][x] == '0'

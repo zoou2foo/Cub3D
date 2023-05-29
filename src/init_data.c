@@ -25,7 +25,7 @@ t_parse	*init_check(void)
 	data->ceiling_color = 0;
 	data->treat_floor = false;
 	data->treat_ceiling = false;
-	data->error = GOOD;
+	data->error = good;
 	data->mapbeg = 0;
 	data->map = malloc(sizeof(t_map));
 	data->map->player = 0;

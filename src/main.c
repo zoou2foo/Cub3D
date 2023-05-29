@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	add_texture(data);
-	if (data->error == GOOD)
+	if (data->error == good)
 	{
 		start_raycast(data);
 		free_everything(data);

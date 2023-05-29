@@ -26,13 +26,13 @@
 # define TEXWIDTH 64
 # define TEXHEIGHT 24
 
-static const char *g_side_tab[7] = {"NO ", "SO ", "WE ", "EA ", "F ", "C ",
+static const char	*g_side_tab[7] = {"NO ", "SO ", "WE ", "EA ", "F ", "C ",
 	NULL};
-static const char *g_dir_tab[5] = {"N", "E", "S", "W", NULL};
+static const char	*g_dir_tab[5] = {"N", "E", "S", "W", NULL};
 
-enum e_error_code	{GOOD, PATH, COLOR, MAP, PLAYER, CUB_FILE};
+enum e_error_code	{good, path, color, map, player, cub_file};
 
-struct	t_parse;
+struct				s_parse;
 
 typedef struct s_map {
 	bool	first_line;
@@ -52,10 +52,10 @@ typedef struct s_tex{
 }	t_tex;
 
 typedef struct s_xpm{
-	xpm_t	*NO;
-	xpm_t	*SO;
-	xpm_t	*EA;
-	xpm_t	*WE;
+	xpm_t	*no;
+	xpm_t	*so;
+	xpm_t	*ea;
+	xpm_t	*we;
 	t_tex	*tab_no_tex;
 	t_tex	*tab_so_tex;
 	t_tex	*tab_ea_tex;
@@ -63,20 +63,20 @@ typedef struct s_xpm{
 }	t_xpm;
 
 typedef struct s_raycast {
-	double	pos_X;
-	double	pos_Y;
-	double	dir_playerX;
-	double	dir_playerY;
-	double	plane_X;
-	double	plane_Y;
-	double	cameraX;
-	double	ray_dirX;
-	double	ray_dirY;
-	double	sideX_dist;
-	double	sideY_dist;
-	double	delta_X;
-	double	delta_Y;
-	double	perpendicular_wallDist;
+	double	pos_x;
+	double	pos_y;
+	double	dir_playerx;
+	double	dir_playery;
+	double	plane_x;
+	double	plane_y;
+	double	camerax;
+	double	ray_dirx;
+	double	ray_diry;
+	double	sidex_dist;
+	double	sidey_dist;
+	double	delta_x;
+	double	delta_y;
+	double	perpendicular_walldist;
 	int		step_x;
 	int		step_y;
 	int		hit;
@@ -113,7 +113,7 @@ void			parse_line(char *line, t_parse *map_check);
 t_parse			*parse_info(char *map);
 void			parse_path(t_parse *map_check, char *line, int j);
 void			parse_color(t_parse *data, char *line, int j);
-int				extract_color(t_parse *data, char *line, int nb_bits , int j);
+int				extract_color(t_parse *data, char *line, int nb_bits, int j);
 
 /*      GET             */
 char			*get_path(char *line);
