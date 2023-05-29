@@ -20,7 +20,7 @@ void	parse_line(char *line, t_parse *map_check)
 
 	i = -1;
 	j = 0;
-	while (ft_isspace(line[++i]) == 0)
+	while (line[++i] == 32)
 		;
 	if (treat_map == false && ft_isdigit(line[i]))
 		treat_map = true;
@@ -50,16 +50,16 @@ void	parse_color(t_parse *data, char *line, int j)
 	k = 0;
 	while (line[i] != '\0' && nb_bits > 0)
 	{
-		while (line[i] != '\0' && (ft_isspace(line[i]) == 0))
+		while (line[i] != '\0' && line[i] == 32)
 			i++;
 		k = extract_color(data, &line[i], nb_bits, j);
 		if (k == -1)
 			break ;
 		nb_bits -= 8;
 		i += k;
-		while (line[i] != '\0' && (ft_isspace(line[i]) == 0))
+		while (line[i] != '\0' && line[i] == 32)
 			i++;
-		if (line[i++] != ',' && nb_bits > 0)
+		if (line[i] != '\0' && line[i++] != ',' && nb_bits > 0)
 			break ;
 	}
 	if (nb_bits > 0)
@@ -113,10 +113,10 @@ void	parse_path(t_parse *map_check, char *line, int j)
 	int	i;
 
 	i = 0;
-	while (ft_isspace(line[i]) == 0)
+	while (line[i] == 32)
 		i++;
 	i += 2;
-	while (ft_isspace(line[++i]) == 0)
+	while (line[++i] == 32)
 		;
 	if (j == 0 && map_check->no == NULL)
 		map_check->no = get_path(&line[i]);

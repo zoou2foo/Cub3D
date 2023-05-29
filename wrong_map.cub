@@ -5,8 +5,8 @@ WE ./textures/Sponge-WallPaper.xpm42
 
 SO ./textures/NyanCat.xpm42
 
-F 0,    180,     40
-C 0, 20,    		160
+F 0, 180,40
+C 0, 20, 160
 
         1111111111111111111111111
         1000000000110000000000001
