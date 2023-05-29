@@ -73,7 +73,7 @@ void	print_double_tab(char **tab)
 	i = 0;
 	while (tab[i] != NULL)
 	{
-		printf("%s", tab[i]);
+		printf("%s\n", tab[i]);
 		i++;
 	}
 	printf("\n");
@@ -88,12 +88,12 @@ char	*ez_gnl(int fd)
 	read_ret[1] = '\0';
 	while (read(fd, &read_ret, 1) > 0)
 	{
+		if (read_ret[0] == '\n')
+			break ;
 		if (line == NULL)
 			line = ft_strdup(read_ret);
 		else
 			line = ft_strjoin_free(line, read_ret);
-		if (read_ret[0] == '\n')
-			break ;
 	}
 	return (line);
 }
@@ -103,11 +103,12 @@ void	flood_fill(t_parse *data, int y, int x)
 	int	i;
 
 	i = 0;
+	printf("%d\n", ft_strlen(data->map->map[y]));
 	while (data->map->map[i])
 		i++;
 	if ((y - 1 < 0 || x - 1 < 0 || y + 1 >= i \
 			|| x + 1 >= ft_strlen(data->map->map[y]))
-		&& ft_strchr("0", data->map->map[y][x]))
+		&& (ft_strchr("0 ", data->map->map[y][x]) != 0))
 	{
 		data->error = map;
 		error_handler(data);
