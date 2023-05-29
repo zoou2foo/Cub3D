@@ -12,35 +12,6 @@
 
 #include "../inc/Cub3D.h"
 
-int	first_parse(int fd, t_parse *data)
-{
-	char		*line;
-	char		read_ret[2];
-	static int	nb_line;
-	int			r_read;
-
-	line = NULL;
-	r_read = read(fd, &read_ret, 1);
-	while (r_read > 0 && read_ret[0] != '\n')
-	{
-		if (line == NULL)
-			line = ft_strdup(read_ret);
-		else
-			line = ft_strjoin_free(line, read_ret);
-		r_read = read(fd, &read_ret, 1);
-	}
-	nb_line++;
-	if ((data->map->first_line == true && data->map->last_line == true) \
-		&& (read_ret[0] == '\n' || line != NULL))
-		data->error = cub_file;
-	if (line != NULL && data->error == good)
-		parse_line(line, data);
-	line = xfree(line);
-	if (data->map->first_line == true && data->mapbeg == 0)
-		data->mapbeg = nb_line;
-	return (r_read);
-}
-
 unsigned int	ft_uatoi(const char *str, t_parse *data)
 {
 	unsigned int	nb;
@@ -96,34 +67,4 @@ char	*ez_gnl(int fd)
 			line = ft_strjoin_free(line, read_ret);
 	}
 	return (line);
-}
-
-void	flood_fill(t_parse *data, int y, int x)
-{
-	int	i;
-
-	i = 0;
-	printf("%d\n", ft_strlen(data->map->map[y]));
-	while (data->map->map[i])
-		i++;
-	if ((y - 1 < 0 || x - 1 < 0 || y + 1 >= i \
-			|| x + 1 >= ft_strlen(data->map->map[y]))
-		&& (ft_strchr("0 ", data->map->map[y][x]) != 0))
-	{
-		data->error = map;
-		error_handler(data);
-	}
-	if (data->map->map[y][x] == '0'
-		|| ft_charsetcmp(data->map->map[y][x], "NSEW") == 0)
-		data->map->map[y][x] = '.';
-	else
-		return ;
-	flood_fill(data, y, x - 1);
-	flood_fill(data, y + 1, x);
-	flood_fill(data, y, x + 1);
-	flood_fill(data, y - 1, x);
-	flood_fill(data, y + 1, x + 1);
-	flood_fill(data, y + 1, x - 1);
-	flood_fill(data, y - 1, x + 1);
-	flood_fill(data, y - 1, x - 1);
 }
