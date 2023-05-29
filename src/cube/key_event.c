@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 11:05:32 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/29 08:22:06 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 09:02:47 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,24 @@ double oldplanex)
 	speed = 0.06;
 	if (key.key == 263)
 	{
-		data->ray->dir_playerX = data->ray->dir_playerX * cos(-speed) \
-		- data->ray->dir_playerY * sin(-speed);
-		data->ray->dir_playerY = olddirx * sin(-speed) \
-		+ data->ray->dir_playerY * cos(-speed);
-		data->ray->plane_X = data->ray->plane_X * cos(-speed) \
-		- data->ray->plane_Y * sin(-speed);
-		data->ray->plane_Y = oldplanex * sin(-speed) + data->ray->plane_Y \
+		data->ray->dir_playerx = data->ray->dir_playerx * cos(-speed) \
+		- data->ray->dir_playery * sin(-speed);
+		data->ray->dir_playery = olddirx * sin(-speed) \
+		+ data->ray->dir_playery * cos(-speed);
+		data->ray->plane_x = data->ray->plane_x * cos(-speed) \
+		- data->ray->plane_y * sin(-speed);
+		data->ray->plane_y = oldplanex * sin(-speed) + data->ray->plane_y \
 		* cos(-speed);
 	}
 	else if (key.key == 262)
 	{
-		data->ray->dir_playerX = data->ray->dir_playerX * cos(speed) \
-		- data->ray->dir_playerY * sin(speed);
-		data->ray->dir_playerY = olddirx * sin(speed) + data->ray->dir_playerY \
+		data->ray->dir_playerx = data->ray->dir_playerx * cos(speed) \
+		- data->ray->dir_playery * sin(speed);
+		data->ray->dir_playery = olddirx * sin(speed) + data->ray->dir_playery \
 		* cos(speed);
-		data->ray->plane_X = data->ray->plane_X * cos(speed) \
-		- data->ray->plane_Y * sin(speed);
-		data->ray->plane_Y = oldplanex * sin(speed) + data->ray->plane_Y \
+		data->ray->plane_x = data->ray->plane_x * cos(speed) \
+		- data->ray->plane_y * sin(speed);
+		data->ray->plane_y = oldplanex * sin(speed) + data->ray->plane_y \
 		* cos(speed);
 	}
 }
@@ -47,8 +47,8 @@ void	rotate_cam(struct mlx_key_data key, t_parse *data)
 	double	olddirx;
 	double	oldplanex;
 
-	olddirx = data->ray->dir_playerX;
-	oldplanex = data->ray->plane_X;
+	olddirx = data->ray->dir_playerx;
+	oldplanex = data->ray->plane_x;
 	do_rotate(key, data, olddirx, oldplanex);
 	go_raycast(data);
 }

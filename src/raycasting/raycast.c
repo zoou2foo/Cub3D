@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:15:04 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/29 08:07:05 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 08:50:07 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	dda_algo(t_parse *data)
 {
 	while (data->ray->hit == 0)
 	{
-		if (data->ray->sideX_dist < data->ray->sideY_dist)
+		if (data->ray->sidex_dist < data->ray->sidey_dist)
 		{
-			data->ray->sideX_dist += data->ray->delta_X;
+			data->ray->sidex_dist += data->ray->delta_x;
 			data->ray->map_x += data->ray->step_x;
 			data->ray->side = 0;
 		}
 		else
 		{
-			data->ray->sideY_dist += data->ray->delta_Y;
+			data->ray->sidey_dist += data->ray->delta_y;
 			data->ray->map_y += data->ray->step_y;
 			data->ray->side = 1;
 		}
@@ -45,14 +45,14 @@ void	add_tex_wall(t_parse *data, int index)
 		mlx_put_pixel(data->image, index, i, data->ceiling_color);
 	if (data->ray->side == 1)
 	{
-		if (data->ray->ray_dirY < 0)
+		if (data->ray->ray_diry < 0)
 			prepare_tex(data, data->xpm->tab_so_tex, &index);
 		else
 			prepare_tex(data, data->xpm->tab_no_tex, &index);
 	}
 	else if (data->ray->side == 0)
 	{
-		if (data->ray->ray_dirX > 0)
+		if (data->ray->ray_dirx > 0)
 			prepare_tex(data, data->xpm->tab_ea_tex, &index);
 		else
 			prepare_tex(data, data->xpm->tab_we_tex, &index);
@@ -73,15 +73,15 @@ void	go_raycast(t_parse *data)
 
 	index = 0;
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
-	data->map->player_x = data->ray->pos_X;
-	data->map->player_y = data->ray->pos_Y;
+	data->map->player_x = data->ray->pos_x;
+	data->map->player_y = data->ray->pos_y;
 	while (index < W)
 	{
 		init_struct(data);
 		camera_x = 2 * index / (double)W - 1;
-		data->ray->ray_dirX = data->ray->dir_playerX + data->ray->plane_X
+		data->ray->ray_dirx = data->ray->dir_playerx + data->ray->plane_x
 			* camera_x;
-		data->ray->ray_dirY = data->ray->dir_playerY + data->ray->plane_Y
+		data->ray->ray_diry = data->ray->dir_playery + data->ray->plane_y
 			* camera_x;
 		mesure_delta(data);
 		prep_dda(data);

@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 08:47:20 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/29 08:07:57 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 08:51:54 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	add_texture(t_parse *data)
 {
 	data->xpm = malloc(sizeof(t_xpm));
 	transform_xpm(data);
-	data->xpm->tab_ea_tex = create_array_pxl(data->xpm->EA);
-	data->xpm->tab_we_tex = create_array_pxl(data->xpm->WE);
-	data->xpm->tab_so_tex = create_array_pxl(data->xpm->SO);
-	data->xpm->tab_no_tex = create_array_pxl(data->xpm->NO);
+	data->xpm->tab_ea_tex = create_array_pxl(data->xpm->ea);
+	data->xpm->tab_we_tex = create_array_pxl(data->xpm->we);
+	data->xpm->tab_so_tex = create_array_pxl(data->xpm->so);
+	data->xpm->tab_no_tex = create_array_pxl(data->xpm->no);
 }
 
 void	put_texture(t_parse *data, t_tex *text, int *i)
@@ -87,16 +87,16 @@ void	prepare_tex(t_parse *data, t_tex *text, int *i)
 
 	hit = 0;
 	if (data->ray->side == 0)
-		hit = data->ray->pos_Y + data->ray->perpendicular_wallDist
-			* data->ray->ray_dirY;
+		hit = data->ray->pos_y + data->ray->perpendicular_walldist
+			* data->ray->ray_diry;
 	else if (data->ray->side == 1)
-		hit = data->ray->pos_X + data->ray->perpendicular_wallDist
-			* data->ray->ray_dirX;
+		hit = data->ray->pos_x + data->ray->perpendicular_walldist
+			* data->ray->ray_dirx;
 	hit -= (int) hit;
 	data->ray->tex_x = (int)(hit * (double) text->width);
-	if (data->ray->side == 0 && data->ray->ray_dirX > 0)
+	if (data->ray->side == 0 && data->ray->ray_dirx > 0)
 		data->ray->tex_x = text->width - data->ray->tex_x - 1;
-	if (data->ray->side == 1 && data->ray->ray_dirY < 0)
+	if (data->ray->side == 1 && data->ray->ray_diry < 0)
 		data->ray->tex_x = text->width - data->ray->tex_x - 1;
 	put_texture(data, text, i);
 }

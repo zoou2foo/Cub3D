@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:08:06 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:17:05 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 08:47:40 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ void	free_tex_paths(t_parse *data)
 
 void	free_ptr_xpm(t_xpm *xpm)
 {
-	if (xpm->EA)
-		ft_free_null(xpm->EA);
-	if (xpm->WE)
-		ft_free_null(xpm->WE);
-	if (xpm->NO)
-		ft_free_null(xpm->NO);
-	if (xpm->SO)
-		ft_free_null(xpm->SO);
+	if (xpm->ea)
+		ft_free_null(xpm->ea);
+	if (xpm->we)
+		ft_free_null(xpm->we);
+	if (xpm->no)
+		ft_free_null(xpm->no);
+	if (xpm->so)
+		ft_free_null(xpm->so);
 	if (xpm->tab_ea_tex)
 		ft_free_null(xpm->tab_ea_tex);
 	if (xpm->tab_no_tex)
