@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:29:42 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:36:58 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/30 14:27:49 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_parse_info(t_parse *data)
 	else if (data->no == NULL || data->so == NULL || data->we == NULL
 		|| data->ea == NULL)
 		data->error = path;
-	else if (data->map->first_line == false || data->map->last_line == false)
+	else if (data->map->first_line == false)
 		data->error = map;
 	else if (data->treat_ceiling == false || data->treat_floor == false)
 		data->error = color;

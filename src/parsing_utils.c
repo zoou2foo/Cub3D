@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgagnon <marvin@42quebec.com>              +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:25:43 by jgagnon           #+#    #+#             */
-/*   Updated: 2023/05/26 16:25:45 by jgagnon          ###   ########.fr       */
+/*   Updated: 2023/05/30 15:23:03 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,15 @@ int	first_parse(int fd, t_parse *data)
 	int			r_read;
 
 	line = NULL;
-	ft_bzero(read_ret, 2);
+	 ft_bzero(read_ret, 2);
 	r_read = read(fd, &read_ret, 1);
 	while (r_read > 0 && read_ret[0] != '\n')
 	{
 		line = read_concatenate(read_ret, line);
 		r_read = read(fd, &read_ret, 1);
 	}
+	if (r_read == -1)
+		data->error = cub_file;
 	nb_line++;
 	if ((data->map->first_line == true && data->map->last_line == true) \
 		&& (read_ret[0] == '\n' || line != NULL))

@@ -59,7 +59,7 @@ mlx:
 
 leaks: all
 #	@exec 3<>report.txt;valgrind --show-leak-kinds=all --leak-check=full --log-fd=3 ./cub3D wrong_map.cub
-	leaks --atExit -- ./cub3D wrong_map.cub
+	leaks --atExit -- ./cub3D 
 clean:
 		${RM} ${NAME} ${NAME}.dSYM
 		${RM} mlx

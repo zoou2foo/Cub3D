@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:47:53 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:39:37 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/30 15:13:34 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <math.h>
+# include <errno.h>
 # include "Libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
@@ -140,6 +141,7 @@ void			print_double_tab(char **tab);
 char			*ez_gnl(int fd);
 void			flood_fill(t_parse *data, int y, int x);
 void			print_info(t_parse *data);
+void			middle_line(char *line, t_parse *parse);
 
 /*      INIT_GAME       */
 void			start_mlx(t_parse *data);
