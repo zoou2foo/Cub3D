@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgagnon <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:50:18 by jgagnon           #+#    #+#             */
-/*   Updated: 2021/10/27 14:25:50 by jgagnon          ###   ########.fr       */
+/*   Updated: 2023/05/29 14:44:59 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_buffconcatenate(const char *s1, const char *s2);
 char	*get_next_line(int fd);
-void    *xfree(void *ptr);
-char	        *ft_strjoin_free(char *s1, char const *s2);
-int	            ft_isspace(const char c);
-char            *ft_charjoinfree(const char *s1, const char c);
-int             ft_charsetcmp(char chr, char *set);
+void	*xfree(void *ptr);
+char	*ft_strjoin_free(char *s1, char const *s2);
+int		ft_isspace(const char c);
+char	*ft_charjoinfree(const char *s1, const char c);
+int		ft_charsetcmp(char chr, char *set);
 
 #endif

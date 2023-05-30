@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:25:05 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:35:31 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 14:22:03 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ t_parse	*parse_info(char *map)
 	flood_fill(mapcheck, mapcheck->map->player_y, mapcheck->map->player_x);
 	if (mapcheck->error != good)
 		error_handler(mapcheck);
-	print_info(mapcheck);
 	return (mapcheck);
 }
 
