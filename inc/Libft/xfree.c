@@ -6,15 +6,15 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:13:08 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/19 15:13:11 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/29 14:45:34 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *xfree(void *ptr)
+void	*xfree(void *ptr)
 {
-    if (ptr != NULL)
-        free(ptr);
-    return (ptr = NULL);
+	if (ptr != NULL)
+		free(ptr);
+	return (ptr = NULL);
 }

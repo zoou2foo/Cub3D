@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_charsetcmp.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/29 14:40:15 by vjean             #+#    #+#             */
+/*   Updated: 2023/05/29 14:40:38 by vjean            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int ft_charsetcmp(char chr, char *set)
+int	ft_charsetcmp(char chr, char *set)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (set[++i] != '\0')
-    {
-        if (chr == set[i])
-            return (0);
-    }
-    return (-1);
+	i = -1;
+	while (set[++i] != '\0')
+	{
+		if (chr == set[i])
+			return (0);
+	}
+	return (-1);
 }
