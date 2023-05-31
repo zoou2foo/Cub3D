@@ -6,34 +6,11 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:53:34 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:33:36 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/30 15:34:46 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Cub3D.h"
-
-int	first_last_line(char *line, t_parse *parse)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i] == 32)
-		;
-	if (line[i] == '1' || line[i] == '0')
-	{
-		while (line[++i] == '1' || line[i] == 32)
-			;
-		if ((line[i] == '0' && line[i + 1] == '\0') || line[i] == '\0')
-		{
-			if (parse->map->first_line == false)
-				parse->map->first_line = true;
-			else if (parse->map->last_line == false)
-				parse->map->last_line = true;
-			return (0);
-		}
-	}
-	return (1);
-}
 
 void	middle_line(char *line, t_parse *parse)
 {
@@ -42,7 +19,7 @@ void	middle_line(char *line, t_parse *parse)
 	i = -1;
 	while (line[++i] == '1' || line[i] == 32)
 		;
-	while (line[i] != '\0')
+	while (line[i] != '\0' && parse->error == good)
 	{
 		if (ft_charsetcmp(line[i], "NESW") == 0 && parse->map->player == 0)
 			parse->map->player = line[i];
@@ -53,21 +30,8 @@ void	middle_line(char *line, t_parse *parse)
 		}
 		map_space_handler(line, &i, parse);
 	}
-}
-
-void	parse_map(char *line, t_parse *parse)
-{
-	static int	nb_line;
-
-	if ((parse->map->first_line == false || parse->map->last_line == false)
-		&& parse->error == good)
-	{
-		if (first_last_line(line, parse) == 1)
-			middle_line(line, parse);
-		nb_line ++;
-	}
-	if (parse->map->last_line == true)
-	parse->map->nb_lines = nb_line;
+	if (parse->map->big_l < ft_strlen(line))
+		parse->map->big_l = ft_strlen(line);
 }
 
 void	map_space_handler(char *line, int *i, t_parse *parse)
@@ -91,6 +55,9 @@ void	map_space_handler(char *line, int *i, t_parse *parse)
 		*i = k;
 		return ;
 	}
+	if (line[*i] != '0' && line[*i] != '1' && line[*i] != '\0' && \
+		ft_charsetcmp(line[*i], "NESW") != 0)
+		parse->error = map;
 	else
 		(*i)++;
 }

@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:27:51 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 16:10:35 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/30 14:29:21 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ void	clear_data(t_parse *data)
 		data->ea = xfree(data->ea);
 	data->floor_color = 0;
 	data->ceiling_color = 0;
-	while (data->map->map[i] != NULL)
+	if (data->map && data->map->map)
 	{
-		data->map->map[i] = xfree(data->map->map[i]);
-		i++;
+		while (data->map->map[i] != NULL)
+		{
+			data->map->map[i] = xfree(data->map->map[i]);
+			i++;
+		}
 	}
 	data->map->map = xfree(data->map->map);
 	data->map = xfree(data->map);

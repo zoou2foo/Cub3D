@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 11:37:06 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 13:22:38 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/30 14:18:57 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 		printf("Veuillez fournir un fichier au format .cub");
 		return (-1);
 	}
-	data = parse_info(argv[1]);
+	data = parse_info( argv[1]);
 	if (data == NULL)
 	{
 		printf("La map n'est pas valide ou n'a pas toutes les bonnes info");

@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:25:05 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/29 14:22:03 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/31 12:20:22 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ void	parse_line(char *line, t_parse *map_check)
 {
 	int				i;
 	int				j;
-	static bool		treat_map;
 
 	i = -1;
 	j = 0;
 	while (line[++i] == 32)
 		;
-	if (treat_map == false && ft_isdigit(line[i]))
-		treat_map = true;
-	if (treat_map == true)
+	if (map_check->map->first_line == false && ft_isdigit(line[i]))
+		map_check->map->first_line = true;
+	if (map_check->map->first_line == true)
 	{
-		parse_map(line, map_check);
+		if (map_check->error == good)
+			middle_line(line, map_check);
+		map_check->map->nb_lines++;
 		return ;
 	}
 	while ((ft_strncmp(&line[i], g_side_tab[j], 3)) != 0 && j < 4)
@@ -77,7 +78,12 @@ int	parse_name(char *map)
 	{
 		if (ft_strncmp(&map[i], ".cub", 5) == 0)
 			return (0);
-		return (-1);
+		else
+		{
+			while (map[i] != '\0' && map[i] != '/')
+				i++;
+			return (parse_name(&map[i]));
+		}
 	}
 	return (-1);
 }
@@ -90,10 +96,10 @@ t_parse	*parse_info(char *map)
 	fd = 0;
 	if (parse_name(map) != 0)
 		return (NULL);
-	mapcheck = init_check();
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
+	mapcheck = init_check();
 	while ((first_parse(fd, mapcheck)) > 0 && mapcheck->error == good)
 		;
 	close(fd);
