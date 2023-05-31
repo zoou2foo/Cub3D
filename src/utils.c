@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:54:50 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/26 14:53:20 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/31 10:25:17 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,8 @@ char	*ez_gnl(int fd)
 	char	read_ret[2];
 
 	line = NULL;
-	read_ret[1] = '\0';
-	while (read(fd, &read_ret, 1) > 0)
-	{
-		if (read_ret[0] == '\n')
-			break ;
-		if (line == NULL)
-			line = ft_strdup(read_ret);
-		else
-			line = ft_strjoin_free(line, read_ret);
-	}
+	ft_bzero(read_ret, 2);
+	while (read(fd, &read_ret, 1) > 0 && read_ret[0] != '\n')
+		line = read_concatenate(read_ret, line);
 	return (line);
 }

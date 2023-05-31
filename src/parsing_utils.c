@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 16:25:43 by jgagnon           #+#    #+#             */
-/*   Updated: 2023/05/30 15:23:03 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/31 10:24:29 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ void	flood_fill(t_parse *data, int y, int x)
 	i = 0;
 	while (data->map->map[i])
 		i++;
-	if ((y - 1 < 0 || x - 1 < 0 || y + 1 >= i \
-			|| x + 1 >= ft_strlen(data->map->map[y]))
-		&& (ft_strchr("0 ", data->map->map[y][x]) != 0))
+//	print_double_tab(data->map->map);
+	if ((y - 1 < 0 || x - 1 < 0 || y >= i - 1 \
+			|| x >= ft_strlen(data->map->map[y]) - 1)
+		&& (ft_strchr("0", data->map->map[y][x]) != 0))
 	{
 		data->error = map;
 		error_handler(data);
@@ -59,23 +60,27 @@ void	flood_fill(t_parse *data, int y, int x)
 		data->map->map[y][x] = '.';
 	else
 		return ;
-	flood_fill(data, y, x - 1);
-	flood_fill(data, y + 1, x);
-	flood_fill(data, y, x + 1);
-	flood_fill(data, y - 1, x);
-	flood_fill(data, y + 1, x + 1);
 	flood_fill(data, y + 1, x - 1);
-	flood_fill(data, y - 1, x + 1);
+	flood_fill(data, y + 1, x);
+	flood_fill(data, y + 1, x + 1);
+	flood_fill(data, y, x - 1);
+	flood_fill(data, y, x + 1);
 	flood_fill(data, y - 1, x - 1);
+	flood_fill(data, y - 1, x);
+	flood_fill(data, y - 1, x + 1);
 }
 
-static char	*read_concatenate(char *r_read, char *line)
+char	*read_concatenate(char *r_read, char *line)
 {
+	char *r_line;
+
+	r_line = NULL;
 	if (line == NULL)
-		line = ft_strdup(r_read);
+		r_line = ft_strdup(r_read);
 	else if (line != NULL)
-		line = ft_strjoin_free(line, r_read);
-	return (line);
+		r_line = ft_strjoin(line, r_read);
+	line = xfree(line);
+	return (r_line);
 }
 
 int	first_parse(int fd, t_parse *data)
@@ -86,7 +91,7 @@ int	first_parse(int fd, t_parse *data)
 	int			r_read;
 
 	line = NULL;
-	 ft_bzero(read_ret, 2);
+	ft_bzero(read_ret, 2);
 	r_read = read(fd, &read_ret, 1);
 	while (r_read > 0 && read_ret[0] != '\n')
 	{

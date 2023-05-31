@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 09:47:53 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/30 15:13:34 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/31 10:18:53 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ char			*ez_gnl(int fd);
 void			flood_fill(t_parse *data, int y, int x);
 void			print_info(t_parse *data);
 void			middle_line(char *line, t_parse *parse);
+char			*read_concatenate(char *r_read, char *line);
 
 /*      INIT_GAME       */
 void			start_mlx(t_parse *data);

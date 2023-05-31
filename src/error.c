@@ -27,7 +27,7 @@ void	error_handler(t_parse *data)
 		printf("La position du joueur est soit manquante ou multiple\n");
 	clear_data(data);
 	data = xfree(data);
-	exit(0);
+	exit(EXIT_FAILURE);
 }
 
 void	check_parse_info(t_parse *data)
