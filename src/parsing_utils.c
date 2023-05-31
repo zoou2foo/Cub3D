@@ -98,7 +98,7 @@ int	first_parse(int fd, t_parse *data)
 		line = read_concatenate(read_ret, line);
 		r_read = read(fd, &read_ret, 1);
 	}
-	if (r_read == -1)
+	if (r_read == -1 || (line == NULL && data->mapbeg > 0))
 		data->error = cub_file;
 	nb_line++;
 	if ((data->map->first_line == true && data->map->last_line == true) \
