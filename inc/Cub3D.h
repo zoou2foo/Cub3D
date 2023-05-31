@@ -44,6 +44,7 @@ typedef struct s_map {
 	int		player_x;
 	int		player_y;
 	int		nb_lines;
+	int		big_l;
 }	t_map;
 
 typedef struct s_tex{

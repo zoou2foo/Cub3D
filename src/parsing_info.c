@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:25:05 by vjean             #+#    #+#             */
-/*   Updated: 2023/05/31 09:34:11 by vjean            ###   ########.fr       */
+/*   Updated: 2023/05/31 12:20:22 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	parse_line(char *line, t_parse *map_check)
 	{
 		if (map_check->error == good)
 			middle_line(line, map_check);
+		map_check->map->nb_lines++;
 		return ;
 	}
 	while ((ft_strncmp(&line[i], g_side_tab[j], 3)) != 0 && j < 4)

@@ -36,5 +36,6 @@ t_parse	*init_check(void)
 	data->map->player_y = 0;
 	data->map->direction = 0;
 	data->map->nb_lines = 0;
+	data->map->big_l = 0;
 	return (data);
 }

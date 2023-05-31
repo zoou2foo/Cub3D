@@ -30,6 +30,8 @@ void	middle_line(char *line, t_parse *parse)
 		}
 		map_space_handler(line, &i, parse);
 	}
+	if (parse->map->big_l < ft_strlen(line))
+		parse->map->big_l = ft_strlen(line);
 }
 
 void	map_space_handler(char *line, int *i, t_parse *parse)
