@@ -47,7 +47,6 @@ void	flood_fill(t_parse *data, int y, int x)
 	i = 0;
 	while (data->map->map[i])
 		i++;
-//	print_double_tab(data->map->map);
 	if ((y - 1 < 0 || x - 1 < 0 || y >= i - 1 \
 			|| x >= ft_strlen(data->map->map[y]) - 1)
 		&& (ft_strchr("0", data->map->map[y][x]) != 0))
@@ -72,7 +71,7 @@ void	flood_fill(t_parse *data, int y, int x)
 
 char	*read_concatenate(char *r_read, char *line)
 {
-	char *r_line;
+	char	*r_line;
 
 	r_line = NULL;
 	if (line == NULL)

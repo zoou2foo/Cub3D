@@ -18,13 +18,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("Veuillez fournir un fichier au format .cub");
+		printf("Veuillez fournir un fichier au format .cub\n");
 		return (-1);
 	}
-	data = parse_info( argv[1]);
+	data = parse_info(argv[1]);
 	if (data == NULL)
 	{
-		printf("La map n'est pas valide ou n'a pas toutes les bonnes info");
+		printf("Le fichier ne peut être ouvert ou a une erreur de format\n");
 		return (-1);
 	}
 	add_texture(data);
