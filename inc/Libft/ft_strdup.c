@@ -6,7 +6,7 @@
 /*   By: vjean <vjean@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 14:27:34 by jgagnon           #+#    #+#             */
-/*   Updated: 2023/05/31 12:04:32 by vjean            ###   ########.fr       */
+/*   Updated: 2023/06/01 10:56:15 by vjean            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ char	*ft_strdup(const char *s1)
 		return (NULL);
 	i = ft_strlen(s1) + 1;
 	ptr = ft_calloc(i, sizeof(char));
-//	ptr = (char *)malloc(sizeof(*ptr) * i);
 	if (!ptr)
 		return (0);
 	ft_strlcpy(ptr, (char *)s1, i);
