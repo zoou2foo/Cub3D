@@ -41,23 +41,23 @@ void	map_space_handler(char *line, int *i, t_parse *parse)
 	k = *i;
 	if (line[k] == '1' && line[k + 1] == 32)
 	{
-		while (line[++k] == 32)
+		while (line[k] != '\0' && line[++k] == 32)
 			;
 		if (line[k] == '1' || line[k] == '\0')
 			*i = k;
 	}
 	else if (line[k] == '0' && line[k + 1] == 32)
 	{
-		while (line[++k] == 32)
+		while (line[k] != '\0' && line[++k] == 32)
 			;
 		if (line[k] == '\0')
 			parse->error = map;
 		*i = k;
 		return ;
 	}
+	else
+		(*i)++;
 	if (line[*i] != '0' && line[*i] != '1' && line[*i] != '\0' && \
 		ft_charsetcmp(line[*i], "NESW") != 0)
 		parse->error = map;
-	else
-		(*i)++;
 }
